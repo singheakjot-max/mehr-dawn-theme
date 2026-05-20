@@ -22,35 +22,48 @@
     return '$' + (Math.round(cents) / 100).toFixed(2);
   }
 
-  /* ---- Optimistic cart drawer: open instantly on add, show loader ---- */
+  /* ---- Optimistic cart drawer: open instantly on add, lift loader once
+     the cart contents re-render (detected via MutationObserver, with a
+     hard safety timeout so the loader can never get stuck). ---- */
   function initFastCart() {
     var cd = document.querySelector('cart-drawer');
     if (!cd || cd.dataset.mehrFast === '1') return;
     cd.dataset.mehrFast = '1';
 
-    // Open the drawer the moment an add-to-cart form is submitted.
+    var safety = null;
+    function stopLoading() {
+      cd.classList.remove('mehr-cart-loading');
+      if (safety) { clearTimeout(safety); safety = null; }
+    }
+    function startLoading() {
+      cd.classList.add('mehr-cart-loading');
+      if (safety) clearTimeout(safety);
+      safety = setTimeout(stopLoading, 4000); // never hang
+    }
+
+    // When the drawer's contents change (Dawn re-renders the cart), drop the loader.
+    var obs = new MutationObserver(function (muts) {
+      if (!cd.classList.contains('mehr-cart-loading')) return;
+      for (var i = 0; i < muts.length; i++) {
+        if (muts[i].type === 'childList' && (muts[i].addedNodes.length || muts[i].removedNodes.length)) {
+          setTimeout(stopLoading, 50);
+          return;
+        }
+      }
+    });
+    obs.observe(cd, { childList: true, subtree: true });
+
     document.addEventListener('submit', function (e) {
       var f = e.target;
       if (!f || !f.matches || !f.matches('form[data-type="add-to-cart-form"]')) return;
-      cd.classList.add('mehr-cart-loading');
+      startLoading();
       try {
         if (typeof cd.open === 'function') { cd.open(); }
         else { cd.classList.add('animate', 'active'); }
       } catch (err) { cd.classList.add('animate', 'active'); }
     }, true);
 
-    // Drop the loader as soon as Dawn renders the fresh cart contents.
-    if (typeof cd.renderContents === 'function' && !cd.__mehrWrapped) {
-      var orig = cd.renderContents.bind(cd);
-      cd.renderContents = function (parsed) {
-        var r = orig(parsed);
-        cd.classList.remove('mehr-cart-loading');
-        return r;
-      };
-      cd.__mehrWrapped = true;
-    }
-    // Safety: never leave the loader stuck.
-    document.addEventListener('cart:refresh', function () { cd.classList.remove('mehr-cart-loading'); });
+    document.addEventListener('cart:refresh', stopLoading);
   }
 
   function initPdp(root) {
