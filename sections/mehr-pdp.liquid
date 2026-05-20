@@ -1,4 +1,5 @@
 {{ 'mehr-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'mehr-pdp-gallery.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'mehr-pdp.js' | asset_url }}" defer="defer"></script>
 {%- comment -%} Dawn's product-form custom element powers AJAX add-to-cart + cart drawer. It must be loaded here because this custom section replaces main-product. {%- endcomment -%}
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
@@ -41,26 +42,43 @@
 
   <div class="mehr-product">
     <div class="mehr-product__media">
-      <div class="mehr-product__media-inner">
-        {%- if product.featured_media != blank -%}
-          {%- for media in product.media limit: 1 -%}
-           <img
-              src="{{ media | image_url: width: 1200 }}"
-              srcset="{{ media | image_url: width: 400 }} 400w, {{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              alt="{{ media.alt | default: product.title | escape }}"
-              loading="eager"
-              class="mehr-product__image"
-              width="{{ media.width }}"
-              height="{{ media.height }}"
-            >
-          {%- endfor -%}
-        {%- else -%}
-          <div class="mehr-product__placeholder">
-            <span>{{ product.title }}</span>
+      {%- if product.media.size > 0 -%}
+        <div class="mehr-gallery" data-mehr-gallery>
+          <div class="mehr-gallery__track">
+            {%- for media in product.media -%}
+              <div class="mehr-gallery__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
+                <img
+                  src="{{ media.preview_image | image_url: width: 1200 }}"
+                  srcset="{{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 1000 }} 1000w, {{ media.preview_image | image_url: width: 1400 }} 1400w"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  alt="{{ media.alt | default: product.title | escape }}"
+                  width="1200"
+                  height="1200"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                >
+              </div>
+            {%- endfor -%}
           </div>
-        {%- endif -%}
-      </div>
+          {%- if product.media.size > 1 -%}
+            <div class="mehr-gallery__dots" aria-hidden="true">
+              {%- for media in product.media -%}
+                <span class="mehr-gallery__dot{% if forloop.first %} is-active{% endif %}"></span>
+              {%- endfor -%}
+            </div>
+            <div class="mehr-gallery__thumbs">
+              {%- for media in product.media -%}
+                <button type="button" class="mehr-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}">
+                  <img src="{{ media.preview_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy">
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="mehr-product__placeholder">
+          <span>{{ product.title }}</span>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="mehr-product__info">
@@ -336,6 +354,45 @@
   {%- endif -%}
 
 </section>
+
+<script>
+(function(){
+  function init(g){
+    var slides = g.querySelectorAll('.mehr-gallery__slide');
+    var thumbs = g.querySelectorAll('.mehr-gallery__thumb');
+    var dots = g.querySelectorAll('.mehr-gallery__dot');
+    var track = g.querySelector('.mehr-gallery__track');
+    function setActive(i){
+      slides.forEach(function(s, x){ s.classList.toggle('is-active', x === i); });
+      thumbs.forEach(function(t, x){ t.classList.toggle('is-active', x === i); });
+      dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); });
+    }
+    thumbs.forEach(function(t, i){
+      t.addEventListener('click', function(){
+        setActive(i);
+        if (track && window.matchMedia('(min-width: 1024px)').matches === false) {
+          track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+        }
+      });
+    });
+    if (track){
+      var tmo;
+      track.addEventListener('scroll', function(){
+        clearTimeout(tmo);
+        tmo = setTimeout(function(){
+          var i = Math.round(track.scrollLeft / track.clientWidth);
+          dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); });
+        }, 60);
+      });
+    }
+  }
+  function boot(){ document.querySelectorAll('.mehr-gallery').forEach(init); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else { boot(); }
+  document.addEventListener('shopify:section:load', boot);
+})();
+</script>
 
 {% schema %}
 {
