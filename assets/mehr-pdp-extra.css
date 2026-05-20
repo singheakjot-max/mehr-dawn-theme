@@ -1,0 +1,99 @@
+/* ============================================================
+   MEHR PDP — hero tightening, compact bundle, modal, placeholders
+   Loaded AFTER mehr-pdp-gallery.css so these win.
+   ============================================================ */
+
+/* ---- Hero spacing tighten ---- */
+.mehr-pdp .mehr-subtagline { margin: 2px 0 0 !important; }
+.mehr-pdp .mehr-supporting { margin-top: 14px !important; }
+.mehr-pdp .mehr-supports { margin-top: 12px !important; margin-bottom: 0 !important; }
+@media (min-width: 1024px) { .mehr-pdp .mehr-product__info { padding: 44px 56px 56px; } }
+
+/* ---- Trust pill as button ---- */
+.mehr-pdp .mehr-trustpill--btn { cursor: pointer; font: inherit; }
+.mehr-pdp .mehr-trustpill--btn:hover { border-color: var(--mehr-product); background: var(--mehr-product-hero); }
+.mehr-pdp .mehr-trustpill--btn .mehr-trustpill__chev { width: 13px; height: 13px; opacity: .7; }
+
+/* ---- Fix square border on add-to-cart pill (Dawn .button::after / ::before overlay uses theme button-radius = 0) ---- */
+.mehr-pdp .mehr-submit::after,
+.mehr-pdp .mehr-submit::before { border-radius: 999px !important; }
+
+/* ---- Compact bundle ---- */
+.mehr-pdp .mehr-bundle { margin: 16px 0 4px; }
+.mehr-pdp .mehr-bundle__toggle { gap: 8px; margin-bottom: 10px; }
+.mehr-pdp .mehr-bundle__mode { padding: 10px 8px; font-size: 13px; border-radius: 10px; }
+.mehr-pdp .mehr-bundle__tiers { gap: 9px; }
+.mehr-pdp .mehr-tier { gap: 11px; border-width: 1.5px; border-radius: 12px; padding: 11px 14px; }
+.mehr-pdp .mehr-tier__radiovis { flex: 0 0 18px; width: 18px; height: 18px; }
+.mehr-pdp .mehr-tier__body { gap: 2px; }
+.mehr-pdp .mehr-tier__title { font-size: 14px; gap: 6px; }
+.mehr-pdp .mehr-tier__chip { font-size: 10px; padding: 1px 7px; }
+.mehr-pdp .mehr-tier__sub { font-size: 12px; }
+.mehr-pdp .mehr-tier__save { font-size: 11px; }
+.mehr-pdp .mehr-tier__now { font-size: 15px; }
+.mehr-pdp .mehr-tier__unit { font-size: 11px; }
+.mehr-pdp .mehr-tier__was { font-size: 11px; }
+
+/* ---- Modal / popup ---- */
+.mehr-modal { position: fixed; inset: 0; z-index: 1100; display: none; }
+.mehr-modal.is-open { display: block; }
+.mehr-modal__overlay { position: absolute; inset: 0; background: rgba(15,15,14,0.55); backdrop-filter: blur(2px); }
+.mehr-modal__panel { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(660px, calc(100vw - 28px)); max-height: 88vh; overflow-y: auto; background: var(--mehr-bg, #FAFAF7); border-radius: 22px; padding: 30px 26px 34px; box-shadow: 0 30px 80px rgba(15,15,14,0.3); font-family: 'Inter', sans-serif; color: var(--mehr-ink, #0F0F0E); }
+@media (min-width: 768px) { .mehr-modal__panel { padding: 42px 44px; } }
+.mehr-modal__close { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--mehr-line); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--mehr-ink); }
+.mehr-modal__close svg { width: 18px; height: 18px; }
+.mehr-modal__kicker { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-muted); font-size: 20px; margin: 0 0 6px; }
+.mehr-modal__title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.03em; font-size: clamp(24px, 3.4vw, 34px); line-height: 1.05; margin: 0 0 16px; }
+.mehr-modal__body h4 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; margin: 22px 0 6px; }
+.mehr-modal__body p { margin: 0 0 12px; font-size: 15px; line-height: 1.6; color: var(--mehr-ink); }
+.mehr-modal__body p.mehr-modal__muted { color: var(--mehr-muted); font-size: 13px; }
+.mehr-modal__links { display: flex; flex-direction: column; gap: 8px; margin: 18px 0 0; }
+.mehr-modal__links a { display: inline-flex; align-items: center; gap: 6px; color: var(--mehr-product); font-weight: 500; font-size: 14px; text-decoration: none; border-bottom: 1px solid var(--mehr-product); align-self: flex-start; padding-bottom: 2px; }
+body.mehr-modal-open { overflow: hidden; }
+
+/* ---- Placeholders (drop real assets here) ---- */
+.mehr-pdp .mehr-ph, .mehr-home .mehr-ph {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center;
+  background: #EFEDE6; border: 2px dashed #CFCCC2; border-radius: 16px; color: #8A877E; padding: 24px;
+}
+.mehr-pdp .mehr-ph svg, .mehr-home .mehr-ph svg { width: 30px; height: 30px; opacity: .7; }
+.mehr-pdp .mehr-ph__label, .mehr-home .mehr-ph__label { font-size: 13px; font-weight: 600; color: #6B6B66; max-width: 26ch; line-height: 1.4; }
+.mehr-ph--img { aspect-ratio: 4 / 3; }
+.mehr-ph--wide { aspect-ratio: 16 / 7; }
+.mehr-ph--square { aspect-ratio: 1 / 1; }
+.mehr-ph--video { aspect-ratio: 9 / 16; border-radius: 14px; }
+.mehr-ph--avatar { width: 60px; height: 60px; border-radius: 50%; padding: 0; gap: 0; }
+.mehr-ph--avatar svg { width: 22px; height: 22px; }
+
+/* ---- Transformations ---- */
+.mehr-pdp .mehr-transform { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 28px; }
+@media (min-width: 768px) { .mehr-pdp .mehr-transform { grid-template-columns: repeat(3, 1fr); } }
+.mehr-pdp .mehr-transform__card { border: 1px solid var(--mehr-line); border-radius: 16px; overflow: hidden; background: #fff; }
+.mehr-pdp .mehr-transform__imgs { display: grid; grid-template-columns: 1fr 1fr; }
+.mehr-pdp .mehr-transform__imgs .mehr-ph { border: 0; border-radius: 0; aspect-ratio: 3 / 4; }
+.mehr-pdp .mehr-transform__imgs .mehr-ph:first-child { border-right: 1px dashed #CFCCC2; }
+.mehr-pdp .mehr-transform__cap { padding: 14px 16px; }
+.mehr-pdp .mehr-transform__cap p { margin: 0; font-size: 14px; color: var(--mehr-muted); }
+.mehr-pdp .mehr-transform__cap strong { display: block; color: var(--mehr-ink); font-weight: 500; margin-bottom: 2px; }
+
+/* ---- UGC video strip ---- */
+.mehr-pdp .mehr-ugc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+@media (min-width: 768px) { .mehr-pdp .mehr-ugc { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---- Doctor faces ---- */
+.mehr-pdp .mehr-doc__faces { display: flex; justify-content: center; gap: -10px; margin-bottom: 14px; }
+.mehr-pdp .mehr-doc__faces .mehr-ph--avatar { margin-left: -10px; border: 3px solid var(--mehr-product-hero); }
+.mehr-pdp .mehr-doc__faces .mehr-ph--avatar:first-child { margin-left: 0; }
+
+/* ---- Lifestyle band ---- */
+.mehr-pdp .mehr-lifestyle { padding: 0; }
+.mehr-pdp .mehr-lifestyle .mehr-ph { border-radius: 0; border-left: 0; border-right: 0; }
+
+/* ---- Home placeholders ---- */
+.mehr-home .mh-ph-hero { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.mehr-home .mh-ph-hero .mehr-ph { margin-top: 8px; }
+.mehr-home .mh-founder__faces { display: flex; justify-content: center; gap: 0; margin-bottom: 18px; }
+.mehr-home .mh-founder__faces .mehr-ph--avatar { margin-left: -10px; border: 3px solid var(--mehr-bg); }
+.mehr-home .mh-founder__faces .mehr-ph--avatar:first-child { margin-left: 0; }
+.mehr-home .mh-story-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 900px) { .mehr-home .mh-story-grid { grid-template-columns: 1fr 1fr; gap: 48px; } }
