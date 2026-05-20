@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 .drawer {
   position: fixed;
   z-index: 1000;
@@ -411,4 +413,86 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   .cart-drawer .cart-item__error {
     margin-left: 0;
   }
+}
+
+/* ============================================================
+   MEHR brand overrides for the cart drawer
+   Black pill checkout, rounded drawer, Inter typography.
+   ============================================================ */
+.mehr-cart-vars { display: none; }
+cart-drawer .drawer__inner {
+  background: #FAFAF7;
+  border: 0;
+  border-radius: 22px 0 0 22px;
+  box-shadow: -8px 0 40px rgba(15, 15, 14, 0.12);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0F0F0E;
+  padding: 0 2rem;
+}
+cart-drawer,
+cart-drawer .drawer__heading,
+cart-drawer .cart-item__name,
+cart-drawer .totals__total,
+cart-drawer .cart__checkout-button,
+cart-drawer .price,
+cart-drawer .product-option,
+cart-drawer .cart-item__details,
+cart-drawer .tax-note,
+cart-drawer .cart__empty-text {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+cart-drawer .drawer__heading {
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-size: 2.4rem;
+  color: #0F0F0E;
+}
+cart-drawer .cart-item__name {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #0F0F0E;
+}
+cart-drawer .totals__total {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #0F0F0E;
+}
+cart-drawer .drawer__footer {
+  border-top: 1px solid #E8E6DF;
+}
+cart-drawer .cart-item__image {
+  border-radius: 10px;
+}
+cart-drawer .discounts__discount {
+  color: #2F7A3E;
+  font-weight: 500;
+}
+cart-drawer .cart__checkout-button {
+  background: #0F0F0E;
+  color: #ffffff;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 1.6rem;
+  letter-spacing: 0.01em;
+  padding: 1.7rem 2.4rem;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+cart-drawer .cart__checkout-button:hover:not([disabled]) {
+  background: #222222;
+  transform: translateY(-1px);
+}
+cart-drawer .cart__checkout-button[disabled] {
+  opacity: 0.55;
+}
+cart-drawer .drawer__inner-empty .button {
+  background: #0F0F0E;
+  color: #ffffff;
+  border: 0;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+cart-drawer cart-remove-button .button {
+  border-radius: 999px;
 }
