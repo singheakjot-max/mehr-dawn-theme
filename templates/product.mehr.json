@@ -193,5 +193,7 @@
       }
     }
   },
-  "order": ["mehr-pdp"]
+  "order": [
+    "mehr-pdp"
+  ]
 }
