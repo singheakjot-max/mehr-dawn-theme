@@ -3,6 +3,7 @@
    - 3 tiers (Buy 1 / Buy 2 Get 1 Free / Buy 3 Get 2 Free)
    - One-time / Subscribe toggle (attaches existing selling plan)
    - Sets hidden quantity + selling_plan inputs for Dawn product-form
+   - Optimistic cart-drawer open for instant perceived speed
    NOTE: the 'free bottle' price is delivered by a native Buy X Get Y
    automatic discount that is switched on at launch. Until then the
    cart total reflects full price; tier display shows launch pricing.
@@ -19,6 +20,37 @@
       try { return window.Shopify.formatMoney(Math.round(cents)); } catch (e) {}
     }
     return '$' + (Math.round(cents) / 100).toFixed(2);
+  }
+
+  /* ---- Optimistic cart drawer: open instantly on add, show loader ---- */
+  function initFastCart() {
+    var cd = document.querySelector('cart-drawer');
+    if (!cd || cd.dataset.mehrFast === '1') return;
+    cd.dataset.mehrFast = '1';
+
+    // Open the drawer the moment an add-to-cart form is submitted.
+    document.addEventListener('submit', function (e) {
+      var f = e.target;
+      if (!f || !f.matches || !f.matches('form[data-type="add-to-cart-form"]')) return;
+      cd.classList.add('mehr-cart-loading');
+      try {
+        if (typeof cd.open === 'function') { cd.open(); }
+        else { cd.classList.add('animate', 'active'); }
+      } catch (err) { cd.classList.add('animate', 'active'); }
+    }, true);
+
+    // Drop the loader as soon as Dawn renders the fresh cart contents.
+    if (typeof cd.renderContents === 'function' && !cd.__mehrWrapped) {
+      var orig = cd.renderContents.bind(cd);
+      cd.renderContents = function (parsed) {
+        var r = orig(parsed);
+        cd.classList.remove('mehr-cart-loading');
+        return r;
+      };
+      cd.__mehrWrapped = true;
+    }
+    // Safety: never leave the loader stuck.
+    document.addEventListener('cart:refresh', function () { cd.classList.remove('mehr-cart-loading'); });
   }
 
   function initPdp(root) {
@@ -83,7 +115,10 @@
     render();
   }
 
-  function boot() { document.querySelectorAll('.mehr-pdp').forEach(initPdp); }
+  function boot() {
+    initFastCart();
+    document.querySelectorAll('.mehr-pdp').forEach(initPdp);
+  }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
   document.addEventListener('shopify:section:load', boot);
 })();
