@@ -1,7 +1,7 @@
 {{ 'mehr-pdp.css' | asset_url | stylesheet_tag }}
 {{ 'mehr-pdp-gallery.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'mehr-pdp.js' | asset_url }}" defer="defer"></script>
-{%- comment -%} Dawn's product-form custom element powers AJAX add-to-cart + cart drawer. It must be loaded here because this custom section replaces main-product. {%- endcomment -%}
+{%- comment -%} Dawn's product-form custom element powers AJAX add-to-cart + cart drawer. {%- endcomment -%}
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,30 +10,12 @@
 {%- assign product_form_id = 'mehr-product-form-' | append: section.id -%}
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 
-<section
-  class="mehr-pdp"
-  id="MehrPDP-{{ section.id }}"
-  data-section-id="{{ section.id }}"
-  style="
-    --mehr-bg: {{ section.settings.bg_color | default: '#FAFAF7' }};
-    --mehr-ink: {{ section.settings.ink_color | default: '#0F0F0E' }};
-    --mehr-muted: #6B6B66;
-    --mehr-line: #E8E6DF;
-    --mehr-accent: {{ section.settings.accent_color | default: '#DCE94B' }};
-    --mehr-product: {{ section.settings.product_color | default: '#1E3A8A' }};
-    --mehr-product-hero: {{ section.settings.product_hero_color | default: '#DCE7F5' }};
-    --mehr-price: {{ section.settings.product_color | default: '#1E3A8A' }};
-    --mehr-success: #2F7A3E;
-    --mehr-success-soft: #E8F3DD;
-  "
->
+<section class="mehr-pdp" id="MehrPDP-{{ section.id }}" data-section-id="{{ section.id }}" style="--mehr-bg: {{ section.settings.bg_color | default: '#FAFAF7' }}; --mehr-ink: {{ section.settings.ink_color | default: '#0F0F0E' }}; --mehr-muted: #6B6B66; --mehr-line: #E8E6DF; --mehr-accent: {{ section.settings.accent_color | default: '#DCE94B' }}; --mehr-product: {{ section.settings.product_color | default: '#1E3A8A' }}; --mehr-product-hero: {{ section.settings.product_hero_color | default: '#DCE7F5' }}; --mehr-price: {{ section.settings.product_color | default: '#1E3A8A' }}; --mehr-success: #2F7A3E; --mehr-success-soft: #E8F3DD;">
 
   {%- if section.settings.show_announcement -%}
     <div class="mehr-announcement">
       <div class="mehr-announcement__inner">
-        {%- if section.settings.announcement_chip != blank -%}
-          <span class="mehr-chip">{{ section.settings.announcement_chip }}</span>
-        {%- endif -%}
+        {%- if section.settings.announcement_chip != blank -%}<span class="mehr-chip">{{ section.settings.announcement_chip }}</span>{%- endif -%}
         <span class="mehr-announcement__text">{{ section.settings.announcement_text }}</span>
         <span aria-hidden="true">→</span>
       </div>
@@ -47,93 +29,42 @@
           <div class="mehr-gallery__track">
             {%- for media in product.media -%}
               <div class="mehr-gallery__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
-                <img
-                  src="{{ media.preview_image | image_url: width: 1200 }}"
-                  srcset="{{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 1000 }} 1000w, {{ media.preview_image | image_url: width: 1400 }} 1400w"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  alt="{{ media.alt | default: product.title | escape }}"
-                  width="1200"
-                  height="1200"
-                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                >
+                <img src="{{ media.preview_image | image_url: width: 1200 }}" srcset="{{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 1000 }} 1000w, {{ media.preview_image | image_url: width: 1400 }} 1400w" sizes="(min-width: 1024px) 50vw, 100vw" alt="{{ media.alt | default: product.title | escape }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
               </div>
             {%- endfor -%}
           </div>
           {%- if product.media.size > 1 -%}
-            <div class="mehr-gallery__dots" aria-hidden="true">
-              {%- for media in product.media -%}
-                <span class="mehr-gallery__dot{% if forloop.first %} is-active{% endif %}"></span>
-              {%- endfor -%}
-            </div>
-            <div class="mehr-gallery__thumbs">
-              {%- for media in product.media -%}
-                <button type="button" class="mehr-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}">
-                  <img src="{{ media.preview_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy">
-                </button>
-              {%- endfor -%}
-            </div>
+            <div class="mehr-gallery__dots" aria-hidden="true">{%- for media in product.media -%}<span class="mehr-gallery__dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}</div>
+            <div class="mehr-gallery__thumbs">{%- for media in product.media -%}<button type="button" class="mehr-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}"><img src="{{ media.preview_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy"></button>{%- endfor -%}</div>
           {%- endif -%}
         </div>
       {%- else -%}
-        <div class="mehr-product__placeholder">
-          <span>{{ product.title }}</span>
-        </div>
+        <div class="mehr-product__placeholder"><span>{{ product.title }}</span></div>
       {%- endif -%}
     </div>
 
     <div class="mehr-product__info">
-
       {%- if section.settings.show_rating -%}
         <div class="mehr-rating">
-          <div class="mehr-rating__stars" aria-label="{{ section.settings.rating_value }} out of 5 stars">
-            {%- for i in (1..5) -%}
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            {%- endfor -%}
-          </div>
+          <div class="mehr-rating__stars" aria-label="{{ section.settings.rating_value }} out of 5 stars">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</div>
           <span class="mehr-rating__text">{{ section.settings.rating_text }}</span>
         </div>
       {%- endif -%}
 
-      {%- if section.settings.kicker != blank -%}
-        <p class="mehr-kicker">{{ section.settings.kicker }}</p>
-      {%- endif -%}
-
-      <h1 class="mehr-headline">
-        {{- section.settings.headline | default: product.title -}}
-      </h1>
-
-      {%- if section.settings.subtagline != blank -%}
-        <p class="mehr-subtagline">{{ section.settings.subtagline }}</p>
-      {%- endif -%}
+      {%- if section.settings.kicker != blank -%}<p class="mehr-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
+      <h1 class="mehr-headline">{{- section.settings.headline | default: product.title -}}</h1>
+      {%- if section.settings.subtagline != blank -%}<p class="mehr-subtagline">{{ section.settings.subtagline }}</p>{%- endif -%}
 
       <div class="mehr-supporting">
-        {%- if section.settings.supporting_copy != blank -%}
-          {{ section.settings.supporting_copy }}
-        {%- else -%}
-          {{ product.description }}
-        {%- endif -%}
+        {%- if section.settings.supporting_copy != blank -%}{{ section.settings.supporting_copy }}{%- else -%}{{ product.description }}{%- endif -%}
       </div>
 
-      {%- if section.settings.supports_text != blank -%}
-        <p class="mehr-supports">
-          <span class="mehr-supports__label">Supports:</span>
-          <span class="mehr-supports__value">{{ section.settings.supports_text }}</span>
-        </p>
-      {%- endif -%}
+      {%- if section.settings.supports_text != blank -%}<p class="mehr-supports"><span class="mehr-supports__label">Supports:</span> <span class="mehr-supports__value">{{ section.settings.supports_text }}</span></p>{%- endif -%}
 
       <div class="mehr-trustpills">
-        <span class="mehr-trustpill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg>
-          Third-Party Tested
-        </span>
-        <span class="mehr-trustpill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-          Clinically Studied
-        </span>
-        <span class="mehr-trustpill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg>
-          99.9% Purity
-        </span>
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg> Third-Party Tested</span>
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg> Clinically Studied</span>
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg> 99.9% Purity</span>
       </div>
 
       <ul class="mehr-benefits">
@@ -145,141 +76,55 @@
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> 99.9% orally bioavailable, arginine-salt form</li>
       </ul>
 
-      <product-form
-        class="mehr-form"
-        data-section-id="{{ section.id }}"
-      >
-        <div class="product-form__error-message-wrapper" role="alert" hidden>
-          <span class="product-form__error-message"></span>
-        </div>
+      <product-form class="mehr-form" data-section-id="{{ section.id }}">
+        <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
+        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id" {% if current_variant.available == false %}disabled{% endif %}>
+          <input type="hidden" name="quantity" value="3" class="mehr-quantity-input">
+          <input type="hidden" name="selling_plan" value="" class="mehr-selling-plan">
 
-        {%- form 'product',
-          product,
-          id: product_form_id,
-          class: 'form',
-          novalidate: 'novalidate',
-          data-type: 'add-to-cart-form'
-        -%}
-          <input
-            type="hidden"
-            name="id"
-            value="{{ current_variant.id }}"
-            class="product-variant-id"
-            {% if current_variant.available == false %}disabled{% endif %}
-          >
-          <input
-            type="hidden"
-            name="quantity"
-            value="1"
-            class="mehr-quantity-input"
-          >
-
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when '@app' -%}
-                <div class="mehr-app-block" {{ block.shopify_attributes }}>
-                  {% render block %}
-                </div>
-            {%- endcase -%}
-          {%- endfor -%}
-
-          <div class="mehr-options" role="radiogroup" aria-label="Purchase options">
-            <label class="mehr-option" data-quantity="1" data-option="once">
-              <input type="radio" name="mehr_purchase_option" value="once" class="mehr-option__radio">
-              <span class="mehr-option__radio-visual" aria-hidden="true"></span>
-              <span class="mehr-option__content">
-                <span class="mehr-option__title-row">
-                  <span class="mehr-option__title">Buy Once</span>
-                  <span class="mehr-option__price">{{ current_variant.price | money }}</span>
-                </span>
-                {%- if section.settings.once_subtitle != blank -%}
-                  <span class="mehr-option__subtitle">{{ section.settings.once_subtitle }}</span>
-                {%- endif -%}
-              </span>
-            </label>
-
-            {%- if section.settings.show_subscribe -%}
-              <label class="mehr-option mehr-option--selected" data-quantity="1" data-option="subscribe">
-                <input type="radio" name="mehr_purchase_option" value="subscribe" class="mehr-option__radio" checked>
-                <span class="mehr-option__radio-visual" aria-hidden="true"></span>
-                <span class="mehr-option__content">
-                  <span class="mehr-option__title-row">
-                    <span class="mehr-option__title-with-chip">
-                      <span class="mehr-option__title">Subscribe</span>
-                      {%- if section.settings.subscribe_chip != blank -%}
-                        <span class="mehr-chip mehr-chip--success">{{ section.settings.subscribe_chip }}</span>
-                      {%- endif -%}
-                    </span>
-                    <span class="mehr-option__price">
-                      {%- if section.settings.subscribe_price != blank -%}
-                        <span class="mehr-price--sale">{{ section.settings.subscribe_price }}</span>
-                      {%- endif -%}
-                      <span class="mehr-price--compare">{{ current_variant.price | money }}</span>
-                    </span>
-                  </span>
-                  {%- if section.settings.subscribe_subtitle != blank -%}
-                    <span class="mehr-option__subtitle">{{ section.settings.subscribe_subtitle }}</span>
-                  {%- endif -%}
-                </span>
+          <div class="mehr-bundle" data-base="{{ current_variant.price }}">
+            <div class="mehr-bundle__toggle">
+              <button type="button" class="mehr-bundle__mode is-active" data-mode="onetime">One-time purchase</button>
+              <button type="button" class="mehr-bundle__mode" data-mode="subscribe">Subscribe &amp; Save 10%</button>
+            </div>
+            <div class="mehr-bundle__tiers" role="radiogroup" aria-label="Choose your supply">
+              <label class="mehr-tier" data-qty="1">
+                <input type="radio" name="mehr_tier" value="1" class="mehr-tier__radio">
+                <span class="mehr-tier__radiovis" aria-hidden="true"></span>
+                <span class="mehr-tier__body"><span class="mehr-tier__title">Buy 1</span><span class="mehr-tier__sub">30-day supply</span><span class="mehr-tier__save"></span></span>
+                <span class="mehr-tier__pricewrap"><span class="mehr-tier__now"></span><span class="mehr-tier__unit"> / bottle</span><span class="mehr-tier__was"></span></span>
               </label>
-            {%- endif -%}
-
-            {%- if section.settings.show_bundle -%}
-              <label class="mehr-option mehr-option--bundle" data-quantity="{{ section.settings.bundle_quantity | default: 3 }}" data-option="bundle">
-                <input type="radio" name="mehr_purchase_option" value="bundle" class="mehr-option__radio">
-                <span class="mehr-option__radio-visual" aria-hidden="true"></span>
-                <span class="mehr-option__content">
-                  <span class="mehr-option__title-row">
-                    <span class="mehr-option__title-with-chip">
-                      <span class="mehr-option__title">{{ section.settings.bundle_title | default: 'Buy 2 Get 1 Free' }}</span>
-                      {%- if section.settings.bundle_chip != blank -%}
-                        <span class="mehr-chip mehr-chip--best-value">{{ section.settings.bundle_chip }}</span>
-                      {%- endif -%}
-                    </span>
-                  </span>
-                  {%- if section.settings.bundle_subtitle != blank -%}
-                    <span class="mehr-option__subtitle">{{ section.settings.bundle_subtitle }}</span>
-                  {%- endif -%}
-                </span>
+              <label class="mehr-tier is-active" data-qty="3">
+                <input type="radio" name="mehr_tier" value="3" class="mehr-tier__radio" checked>
+                <span class="mehr-tier__radiovis" aria-hidden="true"></span>
+                <span class="mehr-tier__body"><span class="mehr-tier__title">Buy 2, Get 1 Free <span class="mehr-tier__chip">Best value</span></span><span class="mehr-tier__sub">90-day supply</span><span class="mehr-tier__save"></span></span>
+                <span class="mehr-tier__pricewrap"><span class="mehr-tier__now"></span><span class="mehr-tier__unit"> / bottle</span><span class="mehr-tier__was"></span></span>
               </label>
-            {%- endif -%}
+              <label class="mehr-tier" data-qty="5">
+                <input type="radio" name="mehr_tier" value="5" class="mehr-tier__radio">
+                <span class="mehr-tier__radiovis" aria-hidden="true"></span>
+                <span class="mehr-tier__body"><span class="mehr-tier__title">Buy 3, Get 2 Free <span class="mehr-tier__chip">Max savings</span></span><span class="mehr-tier__sub">150-day supply</span><span class="mehr-tier__save"></span></span>
+                <span class="mehr-tier__pricewrap"><span class="mehr-tier__now"></span><span class="mehr-tier__unit"> / bottle</span><span class="mehr-tier__was"></span></span>
+              </label>
+            </div>
           </div>
 
           <div class="product-form__buttons mehr-submit-wrap">
-            <button
-              type="submit"
-              name="add"
-              class="mehr-submit product-form__submit button button--full-width button--primary"
-              data-add-to-cart
-              {% if current_variant.available == false %}disabled{% endif %}
-            >
-              <span class="mehr-submit__label">
-                {%- if current_variant.available == false -%}
-                  Sold Out
-                {%- else -%}
-                  {{ section.settings.submit_text | default: 'Add to Cart' }}
-                {%- endif -%}
-              </span>
-              <div class="loading__spinner hidden">
-                <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-                </svg>
-              </div>
+            <button type="submit" name="add" class="mehr-submit product-form__submit button button--full-width button--primary" data-add-to-cart {% if current_variant.available == false %}disabled{% endif %}>
+              <span class="mehr-submit__label">{%- if current_variant.available == false -%}Sold Out{%- else -%}{{ section.settings.submit_text | default: 'Add to Cart' }}{%- endif -%}</span>
+              <span class="mehr-submit__price"></span>
+              <div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg></div>
             </button>
           </div>
 
-          {%- if section.settings.shipping_note != blank -%}
-            <p class="mehr-shipping-note">{{ section.settings.shipping_note }}</p>
-          {%- endif -%}
+          {%- if section.settings.shipping_note != blank -%}<p class="mehr-shipping-note">{{ section.settings.shipping_note }}</p>{%- endif -%}
         {%- endform -%}
       </product-form>
 
       <div class="mehr-guarantee">
         <span class="mehr-guarantee__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-        <div>
-          <h4>30-Day 100% Money-Back Guarantee</h4>
-          <p>We're confident you'll feel the difference. If not, take a full 30 days and we'll refund you — no hassle.</p>
-        </div>
+        <div><h4>30-Day 100% Money-Back Guarantee</h4><p>We're confident you'll feel the difference. If not, take a full 30 days and we'll refund you — no hassle.</p></div>
       </div>
     </div>
   </div>
@@ -287,22 +132,10 @@
   <section class="mehr-section mehr-trustband-sec">
     <div class="mehr-container">
       <div class="mehr-trustband">
-        <div class="mehr-trustband__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-          <p>Clinically studied peptide</p>
-        </div>
-        <div class="mehr-trustband__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg>
-          <p>Third-party tested</p>
-        </div>
-        <div class="mehr-trustband__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg>
-          <p>No fillers, ever</p>
-        </div>
-        <div class="mehr-trustband__item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>
-          <p>Free U.S. shipping</p>
-        </div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><p>Clinically studied peptide</p></div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg><p>Third-party tested</p></div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c5-3 8-7 8-12V5l-8-2-8 2v4c0 5 3 9 8 12z"/><path d="M12 7v8M8 11h8"/></svg><p>No fillers, ever</p></div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg><p>Free U.S. shipping</p></div>
       </div>
     </div>
   </section>
@@ -321,30 +154,11 @@
       <p class="mehr-section__kicker">No needles. No fridge.</p>
       <h2 class="mehr-section__title">Oral MEHR vs injectable BPC-157</h2>
       <div class="mehr-compare">
-        <div class="mehr-compare__row mehr-compare__row--head">
-          <div class="mehr-compare__cell mehr-compare__cell--mehr">Oral MEHR</div>
-          <div class="mehr-compare__cell mehr-compare__cell--alt">Injectable / DIY BPC-157</div>
-        </div>
-        <div class="mehr-compare__row">
-          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> One capsule a day</div>
-          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Daily self-injection</div>
-        </div>
-        <div class="mehr-compare__row">
-          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No needles, ever</div>
-          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Needles &amp; sharps disposal</div>
-        </div>
-        <div class="mehr-compare__row">
-          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Shelf-stable &amp; travel-friendly</div>
-          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Must stay refrigerated</div>
-        </div>
-        <div class="mehr-compare__row">
-          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> 99.9% oral bioavailability</div>
-          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Bioavailability varies by source</div>
-        </div>
-        <div class="mehr-compare__row">
-          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Third-party tested, COA on request</div>
-          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Purity unknown for grey-market vials</div>
-        </div>
+        <div class="mehr-compare__row mehr-compare__row--head"><div class="mehr-compare__cell mehr-compare__cell--mehr">Oral MEHR</div><div class="mehr-compare__cell mehr-compare__cell--alt">Injectable / DIY BPC-157</div></div>
+        <div class="mehr-compare__row"><div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> One capsule a day</div><div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Daily self-injection</div></div>
+        <div class="mehr-compare__row"><div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No needles, ever</div><div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Needles &amp; sharps disposal</div></div>
+        <div class="mehr-compare__row"><div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> 99.9% oral bioavailability</div><div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Bioavailability varies by source</div></div>
+        <div class="mehr-compare__row"><div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Third-party tested, COA on request</div><div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Purity unknown for grey-market vials</div></div>
       </div>
     </div>
   </section>
@@ -353,28 +167,13 @@
   {%- if ingredient_blocks.size > 0 -%}
     <section class="mehr-section mehr-section--inside">
       <div class="mehr-container">
-        {%- if section.settings.inside_kicker != blank -%}
-          <p class="mehr-section__kicker">{{ section.settings.inside_kicker }}</p>
-        {%- endif -%}
+        {%- if section.settings.inside_kicker != blank -%}<p class="mehr-section__kicker">{{ section.settings.inside_kicker }}</p>{%- endif -%}
         <h2 class="mehr-section__title">{{ section.settings.inside_title | default: 'Inside Every Bottle' }}</h2>
         <div class="mehr-ingredients">
           {%- for block in ingredient_blocks -%}
             <div class="mehr-ingredient" {{ block.shopify_attributes }}>
-              <div class="mehr-ingredient__icon" style="background: {{ block.settings.tile_color | default: '#1E3A8A' }}; color: {{ block.settings.tile_text_color | default: '#fff' }};">
-                <div class="mehr-ingredient__icon-inner">
-                  <span class="mehr-ingredient__icon-label">{{ block.settings.tile_label }}</span>
-                  {%- if block.settings.tile_sublabel != blank -%}
-                    <span class="mehr-ingredient__icon-sub">{{ block.settings.tile_sublabel }}</span>
-                  {%- endif -%}
-                </div>
-              </div>
-              <div class="mehr-ingredient__body">
-                <h3 class="mehr-ingredient__title">{{ block.settings.title }}</h3>
-                {%- if block.settings.spec != blank -%}
-                  <p class="mehr-ingredient__spec">{{ block.settings.spec }}</p>
-                {%- endif -%}
-                <p class="mehr-ingredient__copy">{{ block.settings.copy }}</p>
-              </div>
+              <div class="mehr-ingredient__icon" style="background: {{ block.settings.tile_color | default: '#1E3A8A' }}; color: {{ block.settings.tile_text_color | default: '#fff' }};"><div class="mehr-ingredient__icon-inner"><span class="mehr-ingredient__icon-label">{{ block.settings.tile_label }}</span>{%- if block.settings.tile_sublabel != blank -%}<span class="mehr-ingredient__icon-sub">{{ block.settings.tile_sublabel }}</span>{%- endif -%}</div></div>
+              <div class="mehr-ingredient__body"><h3 class="mehr-ingredient__title">{{ block.settings.title }}</h3>{%- if block.settings.spec != blank -%}<p class="mehr-ingredient__spec">{{ block.settings.spec }}</p>{%- endif -%}<p class="mehr-ingredient__copy">{{ block.settings.copy }}</p></div>
             </div>
           {%- endfor -%}
         </div>
@@ -398,20 +197,10 @@
   {%- if effect_blocks.size > 0 -%}
     <section class="mehr-section mehr-section--timeline" style="background: {{ section.settings.timeline_bg | default: '#F1EFE8' }};">
       <div class="mehr-container">
-        {%- if section.settings.timeline_kicker != blank -%}
-          <p class="mehr-section__kicker mehr-section__kicker--centered">{{ section.settings.timeline_kicker }}</p>
-        {%- endif -%}
-        {%- if section.settings.timeline_title != blank -%}
-          <h2 class="mehr-section__title mehr-section__title--centered">{{ section.settings.timeline_title }}</h2>
-        {%- endif -%}
+        {%- if section.settings.timeline_kicker != blank -%}<p class="mehr-section__kicker mehr-section__kicker--centered">{{ section.settings.timeline_kicker }}</p>{%- endif -%}
+        {%- if section.settings.timeline_title != blank -%}<h2 class="mehr-section__title mehr-section__title--centered">{{ section.settings.timeline_title }}</h2>{%- endif -%}
         <div class="mehr-timeline">
-          {%- for block in effect_blocks -%}
-            <div class="mehr-timeline__item" {{ block.shopify_attributes }}>
-              <div class="mehr-timeline__dot"></div>
-              <h3 class="mehr-timeline__title">{{ block.settings.title }}</h3>
-              <p class="mehr-timeline__copy">{{ block.settings.copy }}</p>
-            </div>
-          {%- endfor -%}
+          {%- for block in effect_blocks -%}<div class="mehr-timeline__item" {{ block.shopify_attributes }}><div class="mehr-timeline__dot"></div><h3 class="mehr-timeline__title">{{ block.settings.title }}</h3><p class="mehr-timeline__copy">{{ block.settings.copy }}</p></div>{%- endfor -%}
         </div>
       </div>
     </section>
@@ -426,27 +215,10 @@
         <div class="mehr-ring"><div class="mehr-ring__circle" style="--pct: 96.6;"><div class="mehr-ring__inner">4.83★</div></div><p class="mehr-ring__label">Average review score from 16,434 customers</p></div>
         <div class="mehr-ring"><div class="mehr-ring__circle" style="--pct: 100;"><div class="mehr-ring__inner">100%</div></div><p class="mehr-ring__label">Batches third-party tested for purity</p></div>
       </div>
-      <p class="mehr-rings-note">Bioavailability and testing reflect formulation and lab claims; the review score reflects customer ratings. Swap in your own survey data anytime.</p>
-
       <div class="mehr-studies">
-        <article class="mehr-study">
-          <span class="mehr-study__src">J. Applied Physiology · 2011</span>
-          <h3 class="mehr-study__title">Accelerates tendon healing</h3>
-          <p class="mehr-study__body">Pentadecapeptide BPC 157 increased tendon-explant outgrowth and fibroblast migration in a dose-dependent way — part of why it's studied for tendon, ligament and joint repair.</p>
-          <a class="mehr-study__link" href="https://journals.physiology.org/doi/full/10.1152/japplphysiol.00945.2010" target="_blank" rel="noopener">Link to study ↗</a>
-        </article>
-        <article class="mehr-study">
-          <span class="mehr-study__src">Angiogenesis research</span>
-          <h3 class="mehr-study__title">Modulates blood-vessel growth</h3>
-          <p class="mehr-study__body">BPC 157 has shown angiogenic and angiomodulatory activity (VEGFR2 pathway) in muscle and tendon healing models — directing blood flow to damaged tissue.</p>
-          <a class="mehr-study__link" href="https://pubmed.ncbi.nlm.nih.gov/20388964/" target="_blank" rel="noopener">Link to study ↗</a>
-        </article>
-        <article class="mehr-study">
-          <span class="mehr-study__src">Systematic review · 2025</span>
-          <h3 class="mehr-study__title">36 studies reviewed</h3>
-          <p class="mehr-study__body">A 2025 orthopaedic sports-medicine review of 36 studies reported improved functional, structural and biomechanical outcomes across muscle, tendon, ligament and bone in pre-clinical models.</p>
-          <a class="mehr-study__link" href="https://journals.sagepub.com/doi/abs/10.1177/15563316251355551" target="_blank" rel="noopener">Link to study ↗</a>
-        </article>
+        <article class="mehr-study"><span class="mehr-study__src">J. Applied Physiology · 2011</span><h3 class="mehr-study__title">Accelerates tendon healing</h3><p class="mehr-study__body">Pentadecapeptide BPC 157 increased tendon-explant outgrowth and fibroblast migration in a dose-dependent way — part of why it's studied for tendon, ligament and joint repair.</p><a class="mehr-study__link" href="https://journals.physiology.org/doi/full/10.1152/japplphysiol.00945.2010" target="_blank" rel="noopener">Link to study ↗</a></article>
+        <article class="mehr-study"><span class="mehr-study__src">Angiogenesis research</span><h3 class="mehr-study__title">Modulates blood-vessel growth</h3><p class="mehr-study__body">BPC 157 has shown angiogenic and angiomodulatory activity (VEGFR2 pathway) in muscle and tendon healing models — directing blood flow to damaged tissue.</p><a class="mehr-study__link" href="https://pubmed.ncbi.nlm.nih.gov/20388964/" target="_blank" rel="noopener">Link to study ↗</a></article>
+        <article class="mehr-study"><span class="mehr-study__src">Systematic review · 2025</span><h3 class="mehr-study__title">36 studies reviewed</h3><p class="mehr-study__body">A 2025 orthopaedic sports-medicine review of 36 studies reported improved functional, structural and biomechanical outcomes across muscle, tendon, ligament and bone in pre-clinical models.</p><a class="mehr-study__link" href="https://journals.sagepub.com/doi/abs/10.1177/15563316251355551" target="_blank" rel="noopener">Link to study ↗</a></article>
       </div>
       <p class="mehr-rings-note">Research summaries are largely pre-clinical and shared for education. These statements have not been evaluated by the FDA; this product is not intended to diagnose, treat, cure, or prevent any disease.</p>
     </div>
@@ -456,25 +228,13 @@
     <div class="mehr-container mehr-container--narrow">
       <p class="mehr-section__kicker">What you won't find</p>
       <h2 class="mehr-section__title">Our 'No' list</h2>
-      <ul class="mehr-nolist">
-        <li>No magnesium stearate</li>
-        <li>No silicon dioxide</li>
-        <li>No fillers or flow agents</li>
-        <li>No proprietary blends</li>
-        <li>No sugar, calories, or sweeteners</li>
-        <li>No needles or refrigeration</li>
-      </ul>
+      <ul class="mehr-nolist"><li>No magnesium stearate</li><li>No silicon dioxide</li><li>No fillers or flow agents</li><li>No proprietary blends</li><li>No sugar, calories, or sweeteners</li><li>No needles or refrigeration</li></ul>
     </div>
   </section>
 
   <section class="mehr-section mehr-doc-sec">
     <div class="mehr-container mehr-container--narrow">
-      <div class="mehr-doc">
-        <span class="mehr-doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v5a4 4 0 0 0 8 0V3"/><path d="M9 12v3a5 5 0 0 0 10 0v-2"/><circle cx="19" cy="11" r="2"/></svg></span>
-        <p class="mehr-doc__kicker">Researched, not hyped</p>
-        <h3 class="mehr-doc__title">Built on the published BPC-157 research</h3>
-        <p class="mehr-doc__body">MEHR's arginine-salt formulation is designed around peer-reviewed research on oral BPC-157 stability and absorption. Every batch is third-party tested for purity and identity — a certificate of analysis is available on request.</p>
-      </div>
+      <div class="mehr-doc"><span class="mehr-doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v5a4 4 0 0 0 8 0V3"/><path d="M9 12v3a5 5 0 0 0 10 0v-2"/><circle cx="19" cy="11" r="2"/></svg></span><p class="mehr-doc__kicker">Researched, not hyped</p><h3 class="mehr-doc__title">Built on the published BPC-157 research</h3><p class="mehr-doc__body">MEHR's arginine-salt formulation is designed around peer-reviewed research on oral BPC-157 stability and absorption. Every batch is third-party tested for purity and identity — a certificate of analysis is available on request.</p></div>
     </div>
   </section>
 
@@ -483,17 +243,7 @@
     <section class="mehr-section mehr-section--faq">
       <div class="mehr-container mehr-container--narrow">
         <h2 class="mehr-section__title">{{ section.settings.faq_title | default: 'FAQs' }}</h2>
-        <div class="mehr-faq">
-          {%- for block in faq_blocks -%}
-            <details class="mehr-faq__item" {{ block.shopify_attributes }}>
-              <summary class="mehr-faq__question">
-                <span>{{ block.settings.question }}</span>
-                <span class="mehr-faq__icon" aria-hidden="true">+</span>
-              </summary>
-              <div class="mehr-faq__answer">{{ block.settings.answer }}</div>
-            </details>
-          {%- endfor -%}
-        </div>
+        <div class="mehr-faq">{%- for block in faq_blocks -%}<details class="mehr-faq__item" {{ block.shopify_attributes }}><summary class="mehr-faq__question"><span>{{ block.settings.question }}</span><span class="mehr-faq__icon" aria-hidden="true">+</span></summary><div class="mehr-faq__answer">{{ block.settings.answer }}</div></details>{%- endfor -%}</div>
       </div>
     </section>
   {%- endif -%}
@@ -502,15 +252,10 @@
   {%- if review_blocks.size > 0 -%}
     <section class="mehr-section mehr-section--reviews">
       <div class="mehr-container mehr-container--narrow">
-        {%- if section.settings.reviews_title != blank -%}
-          <h2 class="mehr-section__title mehr-section__title--centered">{{ section.settings.reviews_title }}</h2>
-        {%- endif -%}
+        {%- if section.settings.reviews_title != blank -%}<h2 class="mehr-section__title mehr-section__title--centered">{{ section.settings.reviews_title }}</h2>{%- endif -%}
         <div class="mehr-reviews__summary">
           <div class="mehr-reviews__score">{{ section.settings.rating_value | default: '4.83' }}<span>/5</span></div>
-          <div class="mehr-reviews__meta">
-            <div class="mehr-rating__stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</div>
-            <p>{{ section.settings.rating_text }}</p>
-          </div>
+          <div class="mehr-reviews__meta"><div class="mehr-rating__stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</div><p>{{ section.settings.rating_text }}</p></div>
         </div>
         <div class="mehr-reviews">
           {%- for block in review_blocks -%}
@@ -518,15 +263,8 @@
               <div class="mehr-review__stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</div>
               <h4 class="mehr-review__title">{{ block.settings.title }}</h4>
               <p class="mehr-review__body">{{ block.settings.body }}</p>
-              {%- if block.settings.benefits != blank -%}
-                <p class="mehr-review__benefits">Noticed: <strong>{{ block.settings.benefits }}</strong></p>
-              {%- endif -%}
-              <div class="mehr-review__head">
-                <span class="mehr-review__name">{{ block.settings.name }}</span>
-                {%- if block.settings.verified -%}
-                  <span class="mehr-review__verified">✓ Verified Buyer</span>
-                {%- endif -%}
-              </div>
+              {%- if block.settings.benefits != blank -%}<p class="mehr-review__benefits">Noticed: <strong>{{ block.settings.benefits }}</strong></p>{%- endif -%}
+              <div class="mehr-review__head"><span class="mehr-review__name">{{ block.settings.name }}</span>{%- if block.settings.verified -%}<span class="mehr-review__verified">✓ Verified Buyer</span>{%- endif -%}</div>
             </article>
           {%- endfor -%}
         </div>
@@ -543,34 +281,12 @@
     var thumbs = g.querySelectorAll('.mehr-gallery__thumb');
     var dots = g.querySelectorAll('.mehr-gallery__dot');
     var track = g.querySelector('.mehr-gallery__track');
-    function setActive(i){
-      slides.forEach(function(s, x){ s.classList.toggle('is-active', x === i); });
-      thumbs.forEach(function(t, x){ t.classList.toggle('is-active', x === i); });
-      dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); });
-    }
-    thumbs.forEach(function(t, i){
-      t.addEventListener('click', function(){
-        setActive(i);
-        if (track && window.matchMedia('(min-width: 1024px)').matches === false) {
-          track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
-        }
-      });
-    });
-    if (track){
-      var tmo;
-      track.addEventListener('scroll', function(){
-        clearTimeout(tmo);
-        tmo = setTimeout(function(){
-          var i = Math.round(track.scrollLeft / track.clientWidth);
-          dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); });
-        }, 60);
-      });
-    }
+    function setActive(i){ slides.forEach(function(s, x){ s.classList.toggle('is-active', x === i); }); thumbs.forEach(function(t, x){ t.classList.toggle('is-active', x === i); }); dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); }); }
+    thumbs.forEach(function(t, i){ t.addEventListener('click', function(){ setActive(i); if (track && window.matchMedia('(min-width: 1024px)').matches === false) { track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' }); } }); });
+    if (track){ var tmo; track.addEventListener('scroll', function(){ clearTimeout(tmo); tmo = setTimeout(function(){ var i = Math.round(track.scrollLeft / track.clientWidth); dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); }); }, 60); }); }
   }
   function boot(){ document.querySelectorAll('.mehr-gallery').forEach(init); }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else { boot(); }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
   document.addEventListener('shopify:section:load', boot);
 })();
 </script>
@@ -587,12 +303,10 @@
     { "type": "color", "id": "bg_color", "label": "Page background", "default": "#FAFAF7" },
     { "type": "color", "id": "ink_color", "label": "Body text", "default": "#0F0F0E" },
     { "type": "color", "id": "accent_color", "label": "Lime accent", "default": "#DCE94B" },
-
     { "type": "header", "content": "Announcement Bar" },
     { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
     { "type": "text", "id": "announcement_chip", "label": "Chip text", "default": "New" },
     { "type": "text", "id": "announcement_text", "label": "Announcement copy", "default": "World's first oral BPC-157 peptide" },
-
     { "type": "header", "content": "Headline Area" },
     { "type": "checkbox", "id": "show_rating", "label": "Show star rating", "default": true },
     { "type": "text", "id": "rating_value", "label": "Rating value", "default": "4.83" },
@@ -600,83 +314,30 @@
     { "type": "text", "id": "kicker", "label": "Italic kicker", "default": "World's First Daily Foundational" },
     { "type": "text", "id": "headline", "label": "Main headline (blank = product title)" },
     { "type": "text", "id": "subtagline", "label": "Italic subtagline", "default": "Recovery Oral Peptide" },
-    { "type": "richtext", "id": "supporting_copy", "label": "Supporting paragraph (blank = product description)" },
+    { "type": "richtext", "id": "supporting_copy", "label": "Supporting paragraph" },
     { "type": "text", "id": "supports_text", "label": "Supports line", "default": "Gut Repair, Joint & Tendon Recovery, Inflammation, Muscle Recovery, Sleep & Calm" },
-
-    { "type": "header", "content": "Purchase Options" },
-    { "type": "text", "id": "once_subtitle", "label": "Buy Once subtitle", "default": "30-Day Supply" },
-    { "type": "checkbox", "id": "show_subscribe", "label": "Show Subscribe option", "default": true },
-    { "type": "text", "id": "subscribe_chip", "label": "Subscribe chip", "default": "Save 10%" },
-    { "type": "text", "id": "subscribe_price", "label": "Subscribe display price", "default": "$162.00" },
-    { "type": "text", "id": "subscribe_subtitle", "label": "Subscribe subtitle", "default": "Cancel Anytime" },
-    { "type": "checkbox", "id": "show_bundle", "label": "Show Bundle option", "default": true },
-    { "type": "text", "id": "bundle_title", "label": "Bundle title", "default": "Buy 2 Get 1 Free" },
-    { "type": "number", "id": "bundle_quantity", "label": "Bundle quantity", "default": 3 },
-    { "type": "text", "id": "bundle_chip", "label": "Bundle chip", "default": "Best Value" },
-    { "type": "text", "id": "bundle_subtitle", "label": "Bundle subtitle", "default": "Save $180" },
+    { "type": "header", "content": "Buy Box" },
     { "type": "text", "id": "submit_text", "label": "Submit button text", "default": "Start Recovery" },
     { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "Ships FREE next business day" },
-
     { "type": "header", "content": "Inside Every Bottle" },
     { "type": "text", "id": "inside_kicker", "label": "Italic kicker", "default": "What you're putting in your body" },
     { "type": "text", "id": "inside_title", "label": "Section title", "default": "Inside Every Bottle" },
-
     { "type": "header", "content": "Timeline" },
     { "type": "text", "id": "timeline_kicker", "label": "Italic kicker", "default": "The Body's Own" },
     { "type": "text", "id": "timeline_title", "label": "Section title", "default": "Repair Compound" },
     { "type": "color", "id": "timeline_bg", "label": "Background", "default": "#F1EFE8" },
-
     { "type": "header", "content": "FAQ" },
     { "type": "text", "id": "faq_title", "label": "FAQ title", "default": "FAQs" },
-
     { "type": "header", "content": "Reviews" },
     { "type": "text", "id": "reviews_title", "label": "Reviews title", "default": "Real Stories" }
   ],
   "blocks": [
     { "type": "@app" },
-    {
-      "type": "ingredient",
-      "name": "Ingredient",
-      "settings": [
-        { "type": "text", "id": "tile_label", "label": "Tile label", "default": "MEHR" },
-        { "type": "text", "id": "tile_sublabel", "label": "Tile sublabel", "default": "BPC-157" },
-        { "type": "color", "id": "tile_color", "label": "Tile background", "default": "#1E3A8A" },
-        { "type": "color", "id": "tile_text_color", "label": "Tile text", "default": "#FFFFFF" },
-        { "type": "text", "id": "title", "label": "Title", "default": "BPC-157 (Arginine Salt)" },
-        { "type": "text", "id": "spec", "label": "Spec line", "default": "500mcg per capsule" },
-        { "type": "textarea", "id": "copy", "label": "Description" }
-      ]
-    },
-    {
-      "type": "effect",
-      "name": "Timeline Effect",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Gut Repair" },
-        { "type": "textarea", "id": "copy", "label": "Description" }
-      ]
-    },
-    {
-      "type": "faq",
-      "name": "FAQ Item",
-      "settings": [
-        { "type": "text", "id": "question", "label": "Question", "default": "Is it safe?" },
-        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes.</p>" }
-      ]
-    },
-    {
-      "type": "review",
-      "name": "Review",
-      "settings": [
-        { "type": "text", "id": "name", "label": "Name", "default": "Customer" },
-        { "type": "checkbox", "id": "verified", "label": "Verified", "default": true },
-        { "type": "text", "id": "title", "label": "Review title", "default": "Great" },
-        { "type": "textarea", "id": "body", "label": "Review body" },
-        { "type": "text", "id": "benefits", "label": "Benefits noticed" }
-      ]
-    }
+    { "type": "ingredient", "name": "Ingredient", "settings": [ { "type": "text", "id": "tile_label", "label": "Tile label", "default": "MEHR" }, { "type": "text", "id": "tile_sublabel", "label": "Tile sublabel", "default": "BPC-157" }, { "type": "color", "id": "tile_color", "label": "Tile background", "default": "#1E3A8A" }, { "type": "color", "id": "tile_text_color", "label": "Tile text", "default": "#FFFFFF" }, { "type": "text", "id": "title", "label": "Title", "default": "BPC-157 (Arginine Salt)" }, { "type": "text", "id": "spec", "label": "Spec line", "default": "500mcg per capsule" }, { "type": "textarea", "id": "copy", "label": "Description" } ] },
+    { "type": "effect", "name": "Timeline Effect", "settings": [ { "type": "text", "id": "title", "label": "Title", "default": "Gut Repair" }, { "type": "textarea", "id": "copy", "label": "Description" } ] },
+    { "type": "faq", "name": "FAQ Item", "settings": [ { "type": "text", "id": "question", "label": "Question", "default": "Is it safe?" }, { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes.</p>" } ] },
+    { "type": "review", "name": "Review", "settings": [ { "type": "text", "id": "name", "label": "Name", "default": "Customer" }, { "type": "checkbox", "id": "verified", "label": "Verified", "default": true }, { "type": "text", "id": "title", "label": "Review title", "default": "Great" }, { "type": "textarea", "id": "body", "label": "Review body" }, { "type": "text", "id": "benefits", "label": "Benefits noticed" } ] }
   ],
-  "enabled_on": {
-    "templates": ["product"]
-  }
+  "enabled_on": { "templates": ["product"] }
 }
 {% endschema %}
