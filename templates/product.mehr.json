@@ -117,7 +117,8 @@
             "name": "Brynlee B.",
             "verified": true,
             "title": "Years of bloating, finally gone",
-            "body": "I'd tried probiotics, elimination diets, the works. Within a month on MEHR I noticed real changes — flatter stomach, smoother digestion, way more energy."
+            "body": "I'd tried probiotics, elimination diets, the works. Within a month on MEHR I noticed real changes — flatter stomach, smoother digestion, way more energy.",
+            "benefits": "Gut comfort, Energy"
           }
         },
         "review-2": {
@@ -126,7 +127,8 @@
             "name": "Josh T.",
             "verified": true,
             "title": "Recovering like I'm 25 again",
-            "body": "I'm 52 and lifting heavy 4x a week. Pre-MEHR I was sore for days. Now I'm back in the gym the next morning."
+            "body": "I'm 52 and lifting heavy 4x a week. Pre-MEHR I was sore for days. Now I'm back in the gym the next morning.",
+            "benefits": "Muscle recovery, Joints"
           }
         },
         "review-3": {
@@ -135,7 +137,8 @@
             "name": "Felicity G.",
             "verified": true,
             "title": "My anxiety dropped without me noticing",
-            "body": "Took it for the gut stuff but the surprise was my mood. I'm calmer, sleep deeper, less of that wired feeling at 3pm."
+            "body": "Took it for the gut stuff but the surprise was my mood. I'm calmer, sleep deeper, less of that wired feeling at 3pm.",
+            "benefits": "Sleep, Mood"
           }
         }
       },
@@ -193,7 +196,5 @@
       }
     }
   },
-  "order": [
-    "mehr-pdp"
-  ]
+  "order": ["mehr-pdp"]
 }
