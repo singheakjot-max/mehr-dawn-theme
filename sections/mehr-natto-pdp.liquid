@@ -1,0 +1,308 @@
+{{ 'mehr-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'mehr-pdp-gallery.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+{%- assign product_form_id = 'mehr-natto-form-' | append: section.id -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<section
+  class="mehr-pdp"
+  id="MehrNatto-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  style="
+    --mehr-bg: #FAFAF7;
+    --mehr-ink: #0F0F0E;
+    --mehr-muted: #6B6B66;
+    --mehr-line: #E8E6DF;
+    --mehr-accent: #DCE94B;
+    --mehr-product: #A23B4A;
+    --mehr-product-hero: #F4E7EA;
+    --mehr-price: #A23B4A;
+    --mehr-success: #2F7A3E;
+    --mehr-success-soft: #E8F3DD;
+  "
+>
+
+  <div class="mehr-announcement">
+    <div class="mehr-announcement__inner">
+      <span class="mehr-chip">New</span>
+      <span class="mehr-announcement__text">Clinically-studied fibrinolytic enzyme</span>
+      <span aria-hidden="true">→</span>
+    </div>
+  </div>
+
+  <div class="mehr-product">
+    <div class="mehr-product__media">
+      {%- if product.media.size > 0 -%}
+        <div class="mehr-gallery" data-mehr-gallery>
+          <div class="mehr-gallery__track">
+            {%- for media in product.media -%}
+              <div class="mehr-gallery__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
+                <img src="{{ media.preview_image | image_url: width: 1200 }}" srcset="{{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 1000 }} 1000w, {{ media.preview_image | image_url: width: 1400 }} 1400w" sizes="(min-width: 1024px) 50vw, 100vw" alt="{{ media.alt | default: product.title | escape }}" width="1200" height="1200" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+              </div>
+            {%- endfor -%}
+          </div>
+          {%- if product.media.size > 1 -%}
+            <div class="mehr-gallery__dots" aria-hidden="true">
+              {%- for media in product.media -%}<span class="mehr-gallery__dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}
+            </div>
+            <div class="mehr-gallery__thumbs">
+              {%- for media in product.media -%}
+                <button type="button" class="mehr-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}"><img src="{{ media.preview_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy"></button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="mehr-product__placeholder"><span>{{ product.title }}</span></div>
+      {%- endif -%}
+    </div>
+
+    <div class="mehr-product__info">
+      <div class="mehr-trustpills" style="margin-top:0;">
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg> Studied in 1,062 participants</span>
+      </div>
+
+      <p class="mehr-kicker">Daily Cardiovascular Support</p>
+      <h1 class="mehr-headline">Ultimate Nattokinase</h1>
+      <p class="mehr-subtagline">Fibrinolytic Enzyme</p>
+
+      <div class="mehr-supporting">
+        <p>Nattokinase is a fibrinolytic enzyme purified from natto — the traditional Japanese fermented soybean. It's been studied for its role in supporting healthy circulation, blood pressure already in the normal range, and arterial health by helping the body break down fibrin.</p>
+      </div>
+
+      <p class="mehr-supports"><span class="mehr-supports__label">Supports:</span> <span class="mehr-supports__value">Circulation, Blood pressure, Arterial health, Healthy clotting balance</span></p>
+
+      <div class="mehr-trustpills">
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg> Third-Party Tested</span>
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c5-3 8-7 8-12V5l-8-2-8 2v4c0 5 3 9 8 12z"/><path d="M12 7v8M8 11h8"/></svg> Vegan &amp; Non-GMO</span>
+        <span class="mehr-trustpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> Soy-Fermented</span>
+      </div>
+
+      <ul class="mehr-benefits">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> Supports healthy circulation</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> Blood pressure already in normal range</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> Supports fibrin breakdown</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> Studied for arterial &amp; carotid health</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> 100% vegan &amp; non-GMO</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg> No fillers or flow agents</li>
+      </ul>
+
+      <product-form class="mehr-form" data-section-id="{{ section.id }}">
+        <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
+        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id" {% if current_variant.available == false %}disabled{% endif %}>
+          <input type="hidden" name="quantity" value="1">
+          <div class="mehr-price-row">
+            <span class="mehr-price-now">{{ current_variant.price | money }}</span>
+            <span class="mehr-price-sub">60 capsules · one a day</span>
+          </div>
+          <div class="product-form__buttons mehr-submit-wrap">
+            <button type="submit" name="add" class="mehr-submit product-form__submit button button--full-width button--primary" data-add-to-cart {% if current_variant.available == false %}disabled{% endif %}>
+              <span class="mehr-submit__label">{% if current_variant.available == false %}Sold Out{% else %}Add to Cart{% endif %}</span>
+              <div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg></div>
+            </button>
+          </div>
+          <p class="mehr-shipping-note">Ships FREE next business day</p>
+        {%- endform -%}
+      </product-form>
+
+      <div class="mehr-guarantee">
+        <span class="mehr-guarantee__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div>
+          <h4>30-Day 100% Money-Back Guarantee</h4>
+          <p>Try it risk-free for a full 30 days. If it's not for you, we'll refund you — no hassle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="mehr-section mehr-trustband-sec">
+    <div class="mehr-container">
+      <div class="mehr-trustband">
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg><p>Clinically studied</p></div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><p>Third-party tested</p></div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c5-3 8-7 8-12V5l-8-2-8 2v4c0 5 3 9 8 12z"/><path d="M12 7v8M8 11h8"/></svg><p>Vegan &amp; non-GMO</p></div>
+        <div class="mehr-trustband__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg><p>Free U.S. shipping</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-stats-sec">
+    <div class="mehr-container mehr-stats">
+      <div class="mehr-stat"><span class="mehr-stat__num">1,062</span><span class="mehr-stat__label">Participants in a clinical study</span></div>
+      <div class="mehr-stat"><span class="mehr-stat__num">12<span class="mehr-stat__num-sm">mo</span></span><span class="mehr-stat__label">Study duration</span></div>
+      <div class="mehr-stat"><span class="mehr-stat__num">100%</span><span class="mehr-stat__label">Vegan &amp; non-GMO</span></div>
+      <div class="mehr-stat"><span class="mehr-stat__num">0</span><span class="mehr-stat__label">Fillers or flow agents</span></div>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-compare-sec">
+    <div class="mehr-container mehr-container--narrow">
+      <p class="mehr-section__kicker">Not all nattokinase is equal</p>
+      <h2 class="mehr-section__title">MEHR vs generic nattokinase</h2>
+      <div class="mehr-compare">
+        <div class="mehr-compare__row mehr-compare__row--head">
+          <div class="mehr-compare__cell mehr-compare__cell--mehr">MEHR Ultimate</div>
+          <div class="mehr-compare__cell mehr-compare__cell--alt">Generic nattokinase</div>
+        </div>
+        <div class="mehr-compare__row">
+          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Label-verified potency</div>
+          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Vague or unlisted potency</div>
+        </div>
+        <div class="mehr-compare__row">
+          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Third-party tested, COA on request</div>
+          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Rarely third-party tested</div>
+        </div>
+        <div class="mehr-compare__row">
+          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Vegan capsule, non-GMO</div>
+          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Often gelatin capsules</div>
+        </div>
+        <div class="mehr-compare__row">
+          <div class="mehr-compare__cell mehr-compare__cell--mehr"><svg class="mehr-compare__ico mehr-compare__ico--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No fillers or flow agents</div>
+          <div class="mehr-compare__cell mehr-compare__cell--alt"><svg class="mehr-compare__ico mehr-compare__ico--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Magnesium stearate &amp; fillers</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-section--inside">
+    <div class="mehr-container">
+      <p class="mehr-section__kicker">What you're putting in your body</p>
+      <h2 class="mehr-section__title">Inside every bottle</h2>
+      <div class="mehr-ingredients">
+        <div class="mehr-ingredient">
+          <div class="mehr-ingredient__icon" style="background:#A23B4A;color:#fff;"><div class="mehr-ingredient__icon-inner"><span class="mehr-ingredient__icon-label">NATTO</span><span class="mehr-ingredient__icon-sub">ENZYME</span></div></div>
+          <div class="mehr-ingredient__body"><h3 class="mehr-ingredient__title">Nattokinase</h3><p class="mehr-ingredient__spec">Fibrinolytic enzyme from fermented soy</p><p class="mehr-ingredient__copy">Purified from natto and produced by Bacillus subtilis. Nattokinase is the enzyme studied for breaking down fibrin and supporting healthy circulation.</p></div>
+        </div>
+        <div class="mehr-ingredient">
+          <div class="mehr-ingredient__icon" style="background:#F5F0E4;color:#0F0F0E;"><div class="mehr-ingredient__icon-inner"><span class="mehr-ingredient__icon-label">VEGAN</span><span class="mehr-ingredient__icon-sub">CAPSULE</span></div></div>
+          <div class="mehr-ingredient__body"><h3 class="mehr-ingredient__title">Plant Capsule</h3><p class="mehr-ingredient__spec">No gelatin, no animal products</p><p class="mehr-ingredient__copy">A clean plant-based capsule — so the only thing working in your body is the enzyme itself.</p></div>
+        </div>
+        <div class="mehr-ingredient">
+          <div class="mehr-ingredient__icon" style="background:#FAFAF7;color:#0F0F0E;border:1px solid #E8E6DF;"><div class="mehr-ingredient__icon-inner"><span class="mehr-ingredient__icon-label">CLEAN</span><span class="mehr-ingredient__icon-sub">NO FILLERS</span></div></div>
+          <div class="mehr-ingredient__body"><h3 class="mehr-ingredient__title">Nothing Else</h3><p class="mehr-ingredient__spec">No fillers, flow agents, or proprietary blends</p><p class="mehr-ingredient__copy">No magnesium stearate. No silicon dioxide. No mystery 'other ingredients.' Just clean, label-verified nattokinase.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-howto-sec">
+    <div class="mehr-container mehr-container--narrow">
+      <p class="mehr-section__kicker">One capsule. Every day.</p>
+      <h2 class="mehr-section__title">How to take it</h2>
+      <ol class="mehr-howto">
+        <li class="mehr-howto__step"><span class="mehr-howto__num">1</span><div class="mehr-howto__text"><h3>Take one capsule daily</h3><p>Many people take nattokinase on an empty stomach or before bed. Any consistent time works.</p></div></li>
+        <li class="mehr-howto__step"><span class="mehr-howto__num">2</span><div class="mehr-howto__text"><h3>Stay consistent</h3><p>Cardiovascular benefits in the research were measured over months, not days. Daily use is what matters.</p></div></li>
+        <li class="mehr-howto__step"><span class="mehr-howto__num">3</span><div class="mehr-howto__text"><h3>Check with your doctor first</h3><p>If you take blood thinners or antiplatelet medication, have a clotting disorder, or have surgery scheduled, talk to your healthcare provider before starting.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-science-sec">
+    <div class="mehr-container mehr-container--narrow">
+      <p class="mehr-section__kicker mehr-section__kicker--centered">By the numbers</p>
+      <h2 class="mehr-section__title mehr-section__title--centered">What the research shows</h2>
+      <div class="mehr-rings">
+        <div class="mehr-ring"><div class="mehr-ring__circle" style="--pct: 100;"><div class="mehr-ring__inner">1,062</div></div><p class="mehr-ring__label">Participants in a 12-month clinical study</p></div>
+        <div class="mehr-ring"><div class="mehr-ring__circle" style="--pct: 100;"><div class="mehr-ring__inner">100%</div></div><p class="mehr-ring__label">Vegan, non-GMO, third-party tested</p></div>
+        <div class="mehr-ring"><div class="mehr-ring__circle" style="--pct: 100;"><div class="mehr-ring__inner">0</div></div><p class="mehr-ring__label">Fillers, flow agents or proprietary blends</p></div>
+      </div>
+      <div class="mehr-studies">
+        <article class="mehr-study">
+          <span class="mehr-study__src">Frontiers in Cardiovascular Medicine · 2022</span>
+          <h3 class="mehr-study__title">1,062-participant clinical study</h3>
+          <p class="mehr-study__body">Over 12 months, nattokinase supplementation was associated with improved lipid profiles and reductions in carotid intima-media thickness and plaque size.</p>
+          <a class="mehr-study__link" href="https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2022.964977/full" target="_blank" rel="noopener">Link to study ↗</a>
+        </article>
+        <article class="mehr-study">
+          <span class="mehr-study__src">Review · 2018</span>
+          <h3 class="mehr-study__title">Fibrinolytic &amp; cardiovascular activity</h3>
+          <p class="mehr-study__body">A published review summarising nattokinase's fibrinolytic, antihypertensive, anti-atherosclerotic and lipid-lowering activity across studies.</p>
+          <a class="mehr-study__link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6043915/" target="_blank" rel="noopener">Link to study ↗</a>
+        </article>
+        <article class="mehr-study">
+          <span class="mehr-study__src">Meta-analysis of RCTs · 2023</span>
+          <h3 class="mehr-study__title">Cardiovascular risk factors</h3>
+          <p class="mehr-study__body">A systematic review and meta-analysis of randomised controlled trials examining nattokinase's effect on cardiovascular risk factors, including blood pressure.</p>
+          <a class="mehr-study__link" href="https://www.imrpress.com/journal/RCM/24/8/10.31083/j.rcm2408234" target="_blank" rel="noopener">Link to study ↗</a>
+        </article>
+      </div>
+      <p class="mehr-rings-note">Results vary by dose and study; some trials show benefit and others do not. Shared for education — these statements have not been evaluated by the FDA, and this product is not intended to diagnose, treat, cure, or prevent any disease. Consult your doctor before use, especially if you take blood-thinning medication.</p>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-nolist-sec">
+    <div class="mehr-container mehr-container--narrow">
+      <p class="mehr-section__kicker">What you won't find</p>
+      <h2 class="mehr-section__title">Our 'No' list</h2>
+      <ul class="mehr-nolist">
+        <li>No magnesium stearate</li>
+        <li>No silicon dioxide</li>
+        <li>No fillers or flow agents</li>
+        <li>No gelatin (vegan)</li>
+        <li>No GMOs</li>
+        <li>No proprietary blends</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-doc-sec">
+    <div class="mehr-container mehr-container--narrow">
+      <div class="mehr-doc">
+        <span class="mehr-doc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v5a4 4 0 0 0 8 0V3"/><path d="M9 12v3a5 5 0 0 0 10 0v-2"/><circle cx="19" cy="11" r="2"/></svg></span>
+        <p class="mehr-doc__kicker">Studied in humans</p>
+        <h3 class="mehr-doc__title">Backed by clinical research</h3>
+        <p class="mehr-doc__body">Unlike many supplements, nattokinase has been studied in human trials — including a 1,062-participant study over 12 months. Every MEHR batch is third-party tested for purity and potency.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mehr-section mehr-section--faq">
+    <div class="mehr-container mehr-container--narrow">
+      <h2 class="mehr-section__title">FAQs</h2>
+      <div class="mehr-faq">
+        <details class="mehr-faq__item"><summary class="mehr-faq__question"><span>Is nattokinase safe?</span><span class="mehr-faq__icon" aria-hidden="true">+</span></summary><div class="mehr-faq__answer"><p>Nattokinase has been used in Japan for decades and studied in human trials with a good safety profile. As with any supplement, talk to your doctor if you have a medical condition or take medication.</p></div></details>
+        <details class="mehr-faq__item"><summary class="mehr-faq__question"><span>Can I take it with blood thinners or before surgery?</span><span class="mehr-faq__icon" aria-hidden="true">+</span></summary><div class="mehr-faq__answer"><p>Because nattokinase supports fibrin breakdown, it may add to the effect of blood-thinning or antiplatelet medication. If you take those, have a bleeding/clotting disorder, or have surgery scheduled, speak with your healthcare provider first and stop use before surgery as advised.</p></div></details>
+        <details class="mehr-faq__item"><summary class="mehr-faq__question"><span>How should I take it?</span><span class="mehr-faq__icon" aria-hidden="true">+</span></summary><div class="mehr-faq__answer"><p>One capsule daily. Many people take it on an empty stomach or before bed, but consistency matters more than timing.</p></div></details>
+        <details class="mehr-faq__item"><summary class="mehr-faq__question"><span>How soon will I notice a difference?</span><span class="mehr-faq__icon" aria-hidden="true">+</span></summary><div class="mehr-faq__answer"><p>The cardiovascular benefits in the research were measured over months of consistent use. Think of it as a daily foundation, not a quick fix.</p></div></details>
+        <details class="mehr-faq__item"><summary class="mehr-faq__question"><span>Is it vegan and non-GMO?</span><span class="mehr-faq__icon" aria-hidden="true">+</span></summary><div class="mehr-faq__answer"><p>Yes. The enzyme is fermented from non-GMO soy and delivered in a plant-based capsule — no gelatin or animal products.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+<script>
+(function(){
+  function init(g){
+    var slides = g.querySelectorAll('.mehr-gallery__slide');
+    var thumbs = g.querySelectorAll('.mehr-gallery__thumb');
+    var dots = g.querySelectorAll('.mehr-gallery__dot');
+    var track = g.querySelector('.mehr-gallery__track');
+    function setActive(i){
+      slides.forEach(function(s, x){ s.classList.toggle('is-active', x === i); });
+      thumbs.forEach(function(t, x){ t.classList.toggle('is-active', x === i); });
+      dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); });
+    }
+    thumbs.forEach(function(t, i){ t.addEventListener('click', function(){ setActive(i); if (track && window.matchMedia('(min-width: 1024px)').matches === false) { track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' }); } }); });
+    if (track){ var tmo; track.addEventListener('scroll', function(){ clearTimeout(tmo); tmo = setTimeout(function(){ var i = Math.round(track.scrollLeft / track.clientWidth); dots.forEach(function(d, x){ d.classList.toggle('is-active', x === i); }); }, 60); }); }
+  }
+  function boot(){ document.querySelectorAll('.mehr-gallery').forEach(init); }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+  document.addEventListener('shopify:section:load', boot);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MEHR Nattokinase PDP",
+  "tag": "section",
+  "class": "section-mehr-natto",
+  "settings": [],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}
