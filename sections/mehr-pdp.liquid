@@ -1,0 +1,435 @@
+{{ 'mehr-pdp.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'mehr-pdp.js' | asset_url }}" defer="defer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+{%- assign product_form_id = 'mehr-product-form-' | append: section.id -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<section
+  class="mehr-pdp"
+  id="MehrPDP-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  style="
+    --mehr-bg: {{ section.settings.bg_color | default: '#FAFAF7' }};
+    --mehr-ink: {{ section.settings.ink_color | default: '#0F0F0E' }};
+    --mehr-muted: #6B6B66;
+    --mehr-line: #E8E6DF;
+    --mehr-accent: {{ section.settings.accent_color | default: '#DCE94B' }};
+    --mehr-product: {{ section.settings.product_color | default: '#1E3A8A' }};
+    --mehr-product-hero: {{ section.settings.product_hero_color | default: '#DCE7F5' }};
+    --mehr-price: {{ section.settings.product_color | default: '#1E3A8A' }};
+    --mehr-success: #2F7A3E;
+    --mehr-success-soft: #E8F3DD;
+  "
+>
+
+  {%- if section.settings.show_announcement -%}
+    <div class="mehr-announcement">
+      <div class="mehr-announcement__inner">
+        {%- if section.settings.announcement_chip != blank -%}
+          <span class="mehr-chip">{{ section.settings.announcement_chip }}</span>
+        {%- endif -%}
+        <span class="mehr-announcement__text">{{ section.settings.announcement_text }}</span>
+        <span aria-hidden="true">→</span>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="mehr-product">
+    <div class="mehr-product__media">
+      <div class="mehr-product__media-inner">
+        {%- if product.featured_media != blank -%}
+          {%- for media in product.media limit: 1 -%}
+           <img
+              src="{{ media | image_url: width: 1200 }}"
+              srcset="{{ media | image_url: width: 400 }} 400w, {{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              alt="{{ media.alt | default: product.title | escape }}"
+              loading="eager"
+              class="mehr-product__image"
+              width="{{ media.width }}"
+              height="{{ media.height }}"
+            >
+          {%- endfor -%}
+        {%- else -%}
+          <div class="mehr-product__placeholder">
+            <span>{{ product.title }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="mehr-product__info">
+
+      {%- if section.settings.show_rating -%}
+        <div class="mehr-rating">
+          <div class="mehr-rating__stars" aria-label="{{ section.settings.rating_value }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            {%- endfor -%}
+          </div>
+          <span class="mehr-rating__text">{{ section.settings.rating_text }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.kicker != blank -%}
+        <p class="mehr-kicker">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+
+      <h1 class="mehr-headline">
+        {{- section.settings.headline | default: product.title -}}
+      </h1>
+
+      {%- if section.settings.subtagline != blank -%}
+        <p class="mehr-subtagline">{{ section.settings.subtagline }}</p>
+      {%- endif -%}
+
+      <div class="mehr-supporting">
+        {%- if section.settings.supporting_copy != blank -%}
+          {{ section.settings.supporting_copy }}
+        {%- else -%}
+          {{ product.description }}
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.supports_text != blank -%}
+        <p class="mehr-supports">
+          <span class="mehr-supports__label">Supports:</span>
+          <span class="mehr-supports__value">{{ section.settings.supports_text }}</span>
+        </p>
+      {%- endif -%}
+
+      <product-form
+        class="mehr-form"
+        data-section-id="{{ section.id }}"
+      >
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+          <span class="product-form__error-message"></span>
+        </div>
+
+        {%- form 'product',
+          product,
+          id: product_form_id,
+          class: 'form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+          <input
+            type="hidden"
+            name="id"
+            value="{{ current_variant.id }}"
+            class="product-variant-id"
+            {% if current_variant.available == false %}disabled{% endif %}
+          >
+          <input
+            type="hidden"
+            name="quantity"
+            value="1"
+            class="mehr-quantity-input"
+          >
+
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                <div class="mehr-app-block" {{ block.shopify_attributes }}>
+                  {% render block %}
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+
+          <div class="mehr-options" role="radiogroup" aria-label="Purchase options">
+            <label class="mehr-option" data-quantity="1" data-option="once">
+              <input type="radio" name="mehr_purchase_option" value="once" class="mehr-option__radio">
+              <span class="mehr-option__radio-visual" aria-hidden="true"></span>
+              <span class="mehr-option__content">
+                <span class="mehr-option__title-row">
+                  <span class="mehr-option__title">Buy Once</span>
+                  <span class="mehr-option__price">{{ current_variant.price | money }}</span>
+                </span>
+                {%- if section.settings.once_subtitle != blank -%}
+                  <span class="mehr-option__subtitle">{{ section.settings.once_subtitle }}</span>
+                {%- endif -%}
+              </span>
+            </label>
+
+            {%- if section.settings.show_subscribe -%}
+              <label class="mehr-option mehr-option--selected" data-quantity="1" data-option="subscribe">
+                <input type="radio" name="mehr_purchase_option" value="subscribe" class="mehr-option__radio" checked>
+                <span class="mehr-option__radio-visual" aria-hidden="true"></span>
+                <span class="mehr-option__content">
+                  <span class="mehr-option__title-row">
+                    <span class="mehr-option__title-with-chip">
+                      <span class="mehr-option__title">Subscribe</span>
+                      {%- if section.settings.subscribe_chip != blank -%}
+                        <span class="mehr-chip mehr-chip--success">{{ section.settings.subscribe_chip }}</span>
+                      {%- endif -%}
+                    </span>
+                    <span class="mehr-option__price">
+                      {%- if section.settings.subscribe_price != blank -%}
+                        <span class="mehr-price--sale">{{ section.settings.subscribe_price }}</span>
+                      {%- endif -%}
+                      <span class="mehr-price--compare">{{ current_variant.price | money }}</span>
+                    </span>
+                  </span>
+                  {%- if section.settings.subscribe_subtitle != blank -%}
+                    <span class="mehr-option__subtitle">{{ section.settings.subscribe_subtitle }}</span>
+                  {%- endif -%}
+                </span>
+              </label>
+            {%- endif -%}
+
+            {%- if section.settings.show_bundle -%}
+              <label class="mehr-option mehr-option--bundle" data-quantity="{{ section.settings.bundle_quantity | default: 3 }}" data-option="bundle">
+                <input type="radio" name="mehr_purchase_option" value="bundle" class="mehr-option__radio">
+                <span class="mehr-option__radio-visual" aria-hidden="true"></span>
+                <span class="mehr-option__content">
+                  <span class="mehr-option__title-row">
+                    <span class="mehr-option__title-with-chip">
+                      <span class="mehr-option__title">{{ section.settings.bundle_title | default: 'Buy 2 Get 1 Free' }}</span>
+                      {%- if section.settings.bundle_chip != blank -%}
+                        <span class="mehr-chip mehr-chip--best-value">{{ section.settings.bundle_chip }}</span>
+                      {%- endif -%}
+                    </span>
+                  </span>
+                  {%- if section.settings.bundle_subtitle != blank -%}
+                    <span class="mehr-option__subtitle">{{ section.settings.bundle_subtitle }}</span>
+                  {%- endif -%}
+                </span>
+              </label>
+            {%- endif -%}
+          </div>
+
+          <div class="product-form__buttons mehr-submit-wrap">
+            <button
+              type="submit"
+              name="add"
+              class="mehr-submit product-form__submit"
+              {% if current_variant.available == false %}disabled{% endif %}
+            >
+              <span class="mehr-submit__label">
+                {%- if current_variant.available == false -%}
+                  Sold Out
+                {%- else -%}
+                  {{ section.settings.submit_text | default: 'Add to Cart' }}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+
+          {%- if section.settings.shipping_note != blank -%}
+            <p class="mehr-shipping-note">{{ section.settings.shipping_note }}</p>
+          {%- endif -%}
+        {%- endform -%}
+      </product-form>
+    </div>
+  </div>
+
+  {%- assign ingredient_blocks = section.blocks | where: 'type', 'ingredient' -%}
+  {%- if ingredient_blocks.size > 0 -%}
+    <section class="mehr-section mehr-section--inside">
+      <div class="mehr-container">
+        {%- if section.settings.inside_kicker != blank -%}
+          <p class="mehr-section__kicker">{{ section.settings.inside_kicker }}</p>
+        {%- endif -%}
+        <h2 class="mehr-section__title">{{ section.settings.inside_title | default: 'Inside Every Bottle' }}</h2>
+        <div class="mehr-ingredients">
+          {%- for block in ingredient_blocks -%}
+            <div class="mehr-ingredient" {{ block.shopify_attributes }}>
+              <div class="mehr-ingredient__icon" style="background: {{ block.settings.tile_color | default: '#1E3A8A' }}; color: {{ block.settings.tile_text_color | default: '#fff' }};">
+                <div class="mehr-ingredient__icon-inner">
+                  <span class="mehr-ingredient__icon-label">{{ block.settings.tile_label }}</span>
+                  {%- if block.settings.tile_sublabel != blank -%}
+                    <span class="mehr-ingredient__icon-sub">{{ block.settings.tile_sublabel }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+              <div class="mehr-ingredient__body">
+                <h3 class="mehr-ingredient__title">{{ block.settings.title }}</h3>
+                {%- if block.settings.spec != blank -%}
+                  <p class="mehr-ingredient__spec">{{ block.settings.spec }}</p>
+                {%- endif -%}
+                <p class="mehr-ingredient__copy">{{ block.settings.copy }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- assign effect_blocks = section.blocks | where: 'type', 'effect' -%}
+  {%- if effect_blocks.size > 0 -%}
+    <section class="mehr-section mehr-section--timeline" style="background: {{ section.settings.timeline_bg | default: '#F1EFE8' }};">
+      <div class="mehr-container">
+        {%- if section.settings.timeline_kicker != blank -%}
+          <p class="mehr-section__kicker mehr-section__kicker--centered">{{ section.settings.timeline_kicker }}</p>
+        {%- endif -%}
+        {%- if section.settings.timeline_title != blank -%}
+          <h2 class="mehr-section__title mehr-section__title--centered">{{ section.settings.timeline_title }}</h2>
+        {%- endif -%}
+        <div class="mehr-timeline">
+          {%- for block in effect_blocks -%}
+            <div class="mehr-timeline__item" {{ block.shopify_attributes }}>
+              <div class="mehr-timeline__dot"></div>
+              <h3 class="mehr-timeline__title">{{ block.settings.title }}</h3>
+              <p class="mehr-timeline__copy">{{ block.settings.copy }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- assign faq_blocks = section.blocks | where: 'type', 'faq' -%}
+  {%- if faq_blocks.size > 0 -%}
+    <section class="mehr-section mehr-section--faq">
+      <div class="mehr-container mehr-container--narrow">
+        <h2 class="mehr-section__title">{{ section.settings.faq_title | default: 'FAQs' }}</h2>
+        <div class="mehr-faq">
+          {%- for block in faq_blocks -%}
+            <details class="mehr-faq__item" {{ block.shopify_attributes }}>
+              <summary class="mehr-faq__question">
+                <span>{{ block.settings.question }}</span>
+                <span class="mehr-faq__icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="mehr-faq__answer">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
+  {%- if review_blocks.size > 0 -%}
+    <section class="mehr-section mehr-section--reviews">
+      <div class="mehr-container mehr-container--narrow">
+        {%- if section.settings.reviews_title != blank -%}
+          <h2 class="mehr-section__title">{{ section.settings.reviews_title }}</h2>
+        {%- endif -%}
+        <div class="mehr-reviews">
+          {%- for block in review_blocks -%}
+            <article class="mehr-review" {{ block.shopify_attributes }}>
+              <div class="mehr-review__head">
+                <span class="mehr-review__name">{{ block.settings.name }}</span>
+                {%- if block.settings.verified -%}
+                  <span class="mehr-review__verified">✓ Verified Buyer</span>
+                {%- endif -%}
+              </div>
+              <h4 class="mehr-review__title">{{ block.settings.title }}</h4>
+              <p class="mehr-review__body">{{ block.settings.body }}</p>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+</section>
+
+{% schema %}
+{
+  "name": "MEHR PDP",
+  "tag": "section",
+  "class": "section-mehr-pdp",
+  "settings": [
+    { "type": "header", "content": "Brand Colors" },
+    { "type": "color", "id": "product_color", "label": "Product accent color", "default": "#1E3A8A" },
+    { "type": "color", "id": "product_hero_color", "label": "Hero background color", "default": "#DCE7F5" },
+    { "type": "color", "id": "bg_color", "label": "Page background", "default": "#FAFAF7" },
+    { "type": "color", "id": "ink_color", "label": "Body text", "default": "#0F0F0E" },
+    { "type": "color", "id": "accent_color", "label": "Lime accent", "default": "#DCE94B" },
+
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
+    { "type": "text", "id": "announcement_chip", "label": "Chip text", "default": "New" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement copy", "default": "World's first oral BPC-157 peptide" },
+
+    { "type": "header", "content": "Headline Area" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show star rating", "default": true },
+    { "type": "text", "id": "rating_value", "label": "Rating value", "default": "4.83" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.83/5 from 16,434 Customers" },
+    { "type": "text", "id": "kicker", "label": "Italic kicker", "default": "World's First Daily Foundational" },
+    { "type": "text", "id": "headline", "label": "Main headline (blank = product title)" },
+    { "type": "text", "id": "subtagline", "label": "Italic subtagline", "default": "Recovery Oral Peptide" },
+    { "type": "richtext", "id": "supporting_copy", "label": "Supporting paragraph (blank = product description)" },
+    { "type": "text", "id": "supports_text", "label": "Supports line", "default": "Gut Repair, Joint & Tendon Recovery, Inflammation, Muscle Recovery, Sleep & Calm" },
+
+    { "type": "header", "content": "Purchase Options" },
+    { "type": "text", "id": "once_subtitle", "label": "Buy Once subtitle", "default": "30-Day Supply" },
+    { "type": "checkbox", "id": "show_subscribe", "label": "Show Subscribe option", "default": true },
+    { "type": "text", "id": "subscribe_chip", "label": "Subscribe chip", "default": "Save 10%" },
+    { "type": "text", "id": "subscribe_price", "label": "Subscribe display price", "default": "$162.00" },
+    { "type": "text", "id": "subscribe_subtitle", "label": "Subscribe subtitle", "default": "Cancel Anytime" },
+    { "type": "checkbox", "id": "show_bundle", "label": "Show Bundle option", "default": true },
+    { "type": "text", "id": "bundle_title", "label": "Bundle title", "default": "Buy 2 Get 1 Free" },
+    { "type": "number", "id": "bundle_quantity", "label": "Bundle quantity", "default": 3 },
+    { "type": "text", "id": "bundle_chip", "label": "Bundle chip", "default": "Best Value" },
+    { "type": "text", "id": "bundle_subtitle", "label": "Bundle subtitle", "default": "Save $180" },
+    { "type": "text", "id": "submit_text", "label": "Submit button text", "default": "Start Recovery" },
+    { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "Ships FREE next business day" },
+
+    { "type": "header", "content": "Inside Every Bottle" },
+    { "type": "text", "id": "inside_kicker", "label": "Italic kicker", "default": "What you're putting in your body" },
+    { "type": "text", "id": "inside_title", "label": "Section title", "default": "Inside Every Bottle" },
+
+    { "type": "header", "content": "Timeline" },
+    { "type": "text", "id": "timeline_kicker", "label": "Italic kicker", "default": "The Body's Own" },
+    { "type": "text", "id": "timeline_title", "label": "Section title", "default": "Repair Compound" },
+    { "type": "color", "id": "timeline_bg", "label": "Background", "default": "#F1EFE8" },
+
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_title", "label": "FAQ title", "default": "FAQs" },
+
+    { "type": "header", "content": "Reviews" },
+    { "type": "text", "id": "reviews_title", "label": "Reviews title", "default": "Real Stories" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "text", "id": "tile_label", "label": "Tile label", "default": "MEHR" },
+        { "type": "text", "id": "tile_sublabel", "label": "Tile sublabel", "default": "BPC-157" },
+        { "type": "color", "id": "tile_color", "label": "Tile background", "default": "#1E3A8A" },
+        { "type": "color", "id": "tile_text_color", "label": "Tile text", "default": "#FFFFFF" },
+        { "type": "text", "id": "title", "label": "Title", "default": "BPC-157 (Arginine Salt)" },
+        { "type": "text", "id": "spec", "label": "Spec line", "default": "500mcg per capsule" },
+        { "type": "textarea", "id": "copy", "label": "Description" }
+      ]
+    },
+    {
+      "type": "effect",
+      "name": "Timeline Effect",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Gut Repair" },
+        { "type": "textarea", "id": "copy", "label": "Description" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Is it safe?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes.</p>" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Customer" },
+        { "type": "checkbox", "id": "verified", "label": "Verified", "default": true },
+        { "type": "text", "id": "title", "label": "Review title", "default": "Great" },
+        { "type": "textarea", "id": "body", "label": "Review body" }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}
