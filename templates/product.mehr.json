@@ -9,100 +9,189 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-product",
+    "mehr-pdp": {
+      "type": "mehr-pdp",
       "blocks": {
-        "vendor": {
-          "type": "text",
+        "ingredient-1": {
+          "type": "ingredient",
           "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
+            "tile_label": "MEHR",
+            "tile_sublabel": "BPC-157",
+            "tile_color": "#1E3A8A",
+            "tile_text_color": "#FFFFFF",
+            "title": "BPC-157 (Arginine Salt)",
+            "spec": "500mcg per capsule · 99.9% purity",
+            "copy": "The same body-protection peptide your gut already produces — synthesized to 99.9% purity and bonded to L-Arginine so it survives digestion and reaches your bloodstream intact."
           }
         },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
+        "ingredient-2": {
+          "type": "ingredient",
           "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
+            "tile_label": "L-ARG",
+            "tile_sublabel": "STABILIZER",
+            "tile_color": "#F5F0E4",
+            "tile_text_color": "#0F0F0E",
+            "title": "L-Arginine Bond",
+            "spec": "The bioavailability key",
+            "copy": "Standard BPC-157 breaks down in stomach acid. Our L-Arginine salt bond protects the peptide through digestion — the only reason this works as a capsule instead of an injection."
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
+        "ingredient-3": {
+          "type": "ingredient",
           "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "tile_label": "CLEAN",
+            "tile_sublabel": "NO FILLERS",
+            "tile_color": "#FAFAF7",
+            "tile_text_color": "#0F0F0E",
+            "title": "Nothing Else",
+            "spec": "No fillers, no flow agents, no proprietary blends",
+            "copy": "No magnesium stearate. No silicon dioxide. No mystery 'other ingredients.' Just BPC-157 and the L-Arginine that delivers it. Two ingredients. Full transparency."
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
+        "effect-1": {
+          "type": "effect",
           "settings": {
-            "share_label": "Share"
+            "title": "Gut Repair",
+            "copy": "Directs blood flow to damaged gut tissue, rebuilds the intestinal lining, and balances the microbiome. Researched in cases of IBS, IBD, and SIBO."
+          }
+        },
+        "effect-2": {
+          "type": "effect",
+          "settings": {
+            "title": "Joint & Tendon Recovery",
+            "copy": "Promotes collagen production and fibroblast activity. The research that originally put BPC-157 on the map — tendons, ligaments, and joints rebuild faster."
+          }
+        },
+        "effect-3": {
+          "type": "effect",
+          "settings": {
+            "title": "Muscle Recovery",
+            "copy": "Increases blood flow to broken-down muscle fibers and upregulates growth hormone receptors that decline after 30. Sore yesterday. Back today."
+          }
+        },
+        "effect-4": {
+          "type": "effect",
+          "settings": {
+            "title": "Calmed Inflammation",
+            "copy": "Modulates inflammatory cytokines — the systemic inflammation behind chronic aches, poor sleep, and stubborn fatigue."
+          }
+        },
+        "effect-5": {
+          "type": "effect",
+          "settings": {
+            "title": "Sleep & Calm",
+            "copy": "Supports GABAergic tone for deeper sleep and reduced anxiety. Recovery doesn't happen in the gym — it happens overnight."
+          }
+        },
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is it safe?",
+            "answer": "<p>BPC-157 has been studied extensively in clinical and pre-clinical research with no significant adverse effects reported at the doses used in MEHR. Every batch is third-party tested for purity.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "How long until I see results?",
+            "answer": "<p>Most users report noticeable changes — less bloating, easier mornings, deeper sleep — within 2–3 weeks. Tendon and joint repair compounds over 60–90 days.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this different from injectable BPC-157?",
+            "answer": "<p>Same active peptide. Different delivery system. Our arginine-bonded oral version achieves 99.9% bioavailability without the needles or refrigeration.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq",
+          "settings": {
+            "question": "Will it break my fast?",
+            "answer": "<p>No. Our capsules contain no sugars, calories, or insulin-triggering ingredients.</p>"
+          }
+        },
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "name": "Brynlee B.",
+            "verified": true,
+            "title": "Years of bloating, finally gone",
+            "body": "I'd tried probiotics, elimination diets, the works. Within a month on MEHR I noticed real changes — flatter stomach, smoother digestion, way more energy."
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "name": "Josh T.",
+            "verified": true,
+            "title": "Recovering like I'm 25 again",
+            "body": "I'm 52 and lifting heavy 4x a week. Pre-MEHR I was sore for days. Now I'm back in the gym the next morning."
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "name": "Felicity G.",
+            "verified": true,
+            "title": "My anxiety dropped without me noticing",
+            "body": "Took it for the gut stuff but the surprise was my mood. I'm calmer, sleep deeper, less of that wired feeling at 3pm."
           }
         }
       },
       "block_order": [
-        "vendor",
-        "title",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "share"
+        "ingredient-1",
+        "ingredient-2",
+        "ingredient-3",
+        "effect-1",
+        "effect-2",
+        "effect-3",
+        "effect-4",
+        "effect-5",
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4",
+        "review-1",
+        "review-2",
+        "review-3"
       ],
       "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
-      }
-    },
-    "related-products": {
-      "type": "related-products",
-      "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 28
+        "product_color": "#1E3A8A",
+        "product_hero_color": "#DCE7F5",
+        "bg_color": "#FAFAF7",
+        "ink_color": "#0F0F0E",
+        "accent_color": "#DCE94B",
+        "show_announcement": true,
+        "announcement_chip": "New",
+        "announcement_text": "World's first oral BPC-157 peptide",
+        "show_rating": true,
+        "rating_value": "4.83",
+        "rating_text": "4.83/5 from 16,434 Customers",
+        "kicker": "World's First Daily Foundational",
+        "subtagline": "Recovery Oral Peptide",
+        "supports_text": "Gut Repair, Joint & Tendon Recovery, Inflammation, Muscle Recovery, Sleep & Calm",
+        "once_subtitle": "30-Day Supply",
+        "show_subscribe": true,
+        "subscribe_chip": "Save 10%",
+        "subscribe_price": "$162.00",
+        "subscribe_subtitle": "Cancel Anytime",
+        "show_bundle": true,
+        "bundle_title": "Buy 2 Get 1 Free",
+        "bundle_quantity": 3,
+        "bundle_chip": "Best Value",
+        "bundle_subtitle": "Save $180",
+        "submit_text": "Start Recovery",
+        "shipping_note": "Ships FREE next business day",
+        "inside_kicker": "What you're putting in your body",
+        "inside_title": "Inside Every Bottle",
+        "timeline_kicker": "The Body's Own",
+        "timeline_title": "Repair Compound",
+        "timeline_bg": "#F1EFE8",
+        "faq_title": "FAQs",
+        "reviews_title": "Real Stories"
       }
     }
   },
-  "order": [
-    "main",
-    "related-products"
-  ]
+  "order": ["mehr-pdp"]
 }
