@@ -1,0 +1,127 @@
+/* ============================================================
+   MEHR PDP — gallery + hero refinements
+   Loaded AFTER mehr-pdp.css so these rules win. Adds a real
+   multi-image gallery (full-bleed carousel on mobile, main +
+   thumbnails on desktop) and removes wasted hero padding.
+   ============================================================ */
+
+/* ---- Hero: let the media fill, trim padding ---- */
+.mehr-pdp .mehr-product__media {
+  padding: 0;
+  min-height: 0;
+  background: var(--mehr-bg);
+  overflow: hidden;
+  align-items: flex-start;
+}
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-product__media {
+    padding: 0;
+    min-height: 0;
+    align-self: start;
+    position: sticky;
+    top: 0;
+  }
+}
+.mehr-pdp .mehr-product__info {
+  padding: 24px 20px 40px;
+}
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-product__info {
+    padding: 56px 56px 64px;
+    align-self: center;
+  }
+}
+@media (max-width: 600px) {
+  .mehr-pdp .mehr-container { padding: 0 20px; }
+}
+
+/* ---- Gallery ---- */
+.mehr-pdp .mehr-gallery { width: 100%; }
+
+.mehr-pdp .mehr-gallery__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.mehr-pdp .mehr-gallery__track::-webkit-scrollbar { display: none; }
+
+.mehr-pdp .mehr-gallery__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 1 / 1;
+}
+.mehr-pdp .mehr-gallery__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mehr-pdp .mehr-gallery__dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 0 2px;
+  background: var(--mehr-bg);
+}
+.mehr-pdp .mehr-gallery__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(15, 15, 14, 0.22);
+  transition: background 0.15s, transform 0.15s;
+}
+.mehr-pdp .mehr-gallery__dot.is-active {
+  background: var(--mehr-ink);
+  transform: scale(1.15);
+}
+
+.mehr-pdp .mehr-gallery__thumbs { display: none; }
+
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-gallery__track {
+    display: block;
+    overflow: visible;
+    position: relative;
+    aspect-ratio: 1 / 1;
+  }
+  .mehr-pdp .mehr-gallery__slide {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .mehr-pdp .mehr-gallery__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mehr-pdp .mehr-gallery__dots { display: none; }
+  .mehr-pdp .mehr-gallery__thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px;
+    background: var(--mehr-bg);
+  }
+  .mehr-pdp .mehr-gallery__thumb {
+    width: 62px;
+    height: 62px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    background: #fff;
+    transition: border-color 0.15s;
+  }
+  .mehr-pdp .mehr-gallery__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mehr-pdp .mehr-gallery__thumb.is-active { border-color: var(--mehr-ink); }
+}
