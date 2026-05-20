@@ -105,6 +105,37 @@
   .mehr-home .mh-capture button { background: var(--mehr-accent); color: var(--mehr-ink); border: 0; padding: 0 28px; font-weight: 600; font-size: 15px; cursor: pointer; font-family: 'Inter', sans-serif; }
   .mehr-home .mh-capture__success { margin: 14px 0 0; color: var(--mehr-accent); font-weight: 500; }
   .mehr-home .mh-disclaimer { font-size: 12px; color: var(--mehr-muted); text-align: center; max-width: 720px; margin: 0 auto; padding: 0 24px 56px; line-height: 1.5; }
+
+  /* === Image placeholder slots (drop real assets in later) === */
+  .mehr-home .mh-ph { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background: repeating-linear-gradient(45deg, #F1EFE8, #F1EFE8 11px, #ECEAE2 11px, #ECEAE2 22px); border: 1.5px dashed #C7C4B9; border-radius: 16px; color: var(--mehr-muted); min-height: 200px; padding: 24px; }
+  .mehr-home .mh-ph__label { font-size: 13px; line-height: 1.45; max-width: 26em; }
+  .mehr-home .mh-ph__label b { display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 19px; color: var(--mehr-ink); margin-bottom: 4px; }
+  .mehr-home .mh-ph--wide { min-height: 300px; border-radius: 22px; }
+  @media (min-width:1024px){ .mehr-home .mh-ph--wide { min-height: 420px; } }
+  .mehr-home .mh-ph--tall { height: 100%; min-height: 280px; }
+  .mehr-home .mh-ph--avatar { width: 50px; height: 50px; min-height: 0; border-radius: 999px; padding: 0; flex: 0 0 auto; }
+
+  /* Who-we-are split */
+  .mehr-home .mh-split { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  @media (min-width:900px){ .mehr-home .mh-split { grid-template-columns: 1.05fr 1fr; gap: 56px; } }
+
+  /* Science / evidence band */
+  .mehr-home .mh-science-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
+  @media (min-width:768px){ .mehr-home .mh-science-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* Reviews + transformations */
+  .mehr-home .mh-reviews { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+  @media (min-width:768px){ .mehr-home .mh-reviews { grid-template-columns: repeat(3,1fr); } }
+  .mehr-home .mh-review { border: 1px solid var(--mehr-line); border-radius: 18px; padding: 24px; background: #fff; }
+  .mehr-home .mh-review__stars { color: var(--mehr-product); letter-spacing: 3px; font-size: 14px; }
+  .mehr-home .mh-review__text { font-size: 15px; line-height: 1.55; color: var(--mehr-muted); margin: 12px 0 18px; }
+  .mehr-home .mh-review__who { display: flex; align-items: center; gap: 12px; }
+  .mehr-home .mh-review__name { font-size: 14px; font-weight: 500; }
+  .mehr-home .mh-review__name span { display: block; font-weight: 400; color: var(--mehr-muted); font-size: 12px; }
+  .mehr-home .mh-transform { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 28px; }
+  @media (min-width:768px){ .mehr-home .mh-transform { grid-template-columns: repeat(4,1fr); } }
+  .mehr-home .mh-transform .mh-ph { min-height: 220px; }
+  .mehr-home .mh-founder__faces { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 0 20px; }
 </style>
 
 <div class="mehr-home" id="MehrHome-{{ section.id }}">
@@ -132,12 +163,24 @@
     </div>
   </section>
 
-  <!-- WHO WE ARE -->
+  <!-- HERO LIFESTYLE IMAGE (placeholder) -->
+  <section class="mh-section" style="padding:56px 0 0;">
+    <div class="mh-wrap">
+      <div class="mh-ph mh-ph--wide"><span class="mh-ph__label"><b>Hero lifestyle photo</b>Wide editorial shot — a real person in a calm morning routine with MEHR, natural light, lots of negative space. Suggested 1600×900.</span></div>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE (split with brand photo) -->
   <section class="mh-section" id="mh-story">
-    <div class="mh-wrap mh-wrap--narrow">
-      <p class="mh-section__kicker">Who we are</p>
-      <h2 class="mh-title">We started with a simple frustration</h2>
-      <p class="mh-lede mh-muted">The most promising recovery and longevity compounds were locked behind injections, grey-market vials, and zero transparency. MEHR exists to change that — to take what the research community already trusts and make it clean, oral, and easy to keep up every day. We name every ingredient, third-party test every batch, and refuse the fillers and proprietary blends the rest of the industry hides behind.</p>
+    <div class="mh-wrap">
+      <div class="mh-split">
+        <div>
+          <p class="mh-section__kicker">Who we are</p>
+          <h2 class="mh-title">We started with a simple frustration</h2>
+          <p class="mh-lede mh-muted">The most promising recovery and longevity compounds were locked behind injections, grey-market vials, and zero transparency. MEHR exists to change that — to take what the research community already trusts and make it clean, oral, and easy to keep up every day. We name every ingredient, third-party test every batch, and refuse the fillers and proprietary blends the rest of the industry hides behind.</p>
+        </div>
+        <div class="mh-ph mh-ph--tall"><span class="mh-ph__label"><b>Brand / founder photo</b>Studio or lifestyle image that says who MEHR is — product flat-lay, lab bench, or founders. Portrait crop, ~900×1100.</span></div>
+      </div>
     </div>
   </section>
 
@@ -223,8 +266,55 @@
     </div>
   </div>
 
-  <!-- GOAL / VISION -->
+  <!-- SCIENCE / EVIDENCE (placeholders) -->
   <section class="mh-section">
+    <div class="mh-wrap">
+      <div class="mh-center">
+        <p class="mh-section__kicker">The science, in the open</p>
+        <h2 class="mh-title">Proof you can actually see</h2>
+      </div>
+      <div class="mh-science-grid">
+        <div class="mh-ph mh-ph--wide"><span class="mh-ph__label"><b>Mechanism illustration</b>Clean diagram of how the compounds work in the body (tissue repair / circulation). Brand colours, minimal line art.</span></div>
+        <div class="mh-ph mh-ph--wide"><span class="mh-ph__label"><b>Certificate of Analysis</b>Photo or scan of a real third-party lab report / COA, with the 99.9% purity result visible.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS + TRANSFORMATIONS (placeholders) -->
+  <section class="mh-section" style="padding-top:0;">
+    <div class="mh-wrap">
+      <div class="mh-center">
+        <p class="mh-section__kicker">Real people, real results</p>
+        <h2 class="mh-title">Loved by people who feel the difference</h2>
+      </div>
+      <div class="mh-reviews">
+        <div class="mh-review">
+          <div class="mh-review__stars">★★★★★</div>
+          <p class="mh-review__text">[ Customer review copy — pull a real testimonial about recovery, gut, or joints here. ]</p>
+          <div class="mh-review__who"><span class="mh-ph mh-ph--avatar"></span><span class="mh-review__name">[ Customer name ]<span>Verified buyer</span></span></div>
+        </div>
+        <div class="mh-review">
+          <div class="mh-review__stars">★★★★★</div>
+          <p class="mh-review__text">[ Customer review copy — a second real testimonial, ideally a different benefit/use case. ]</p>
+          <div class="mh-review__who"><span class="mh-ph mh-ph--avatar"></span><span class="mh-review__name">[ Customer name ]<span>Verified buyer</span></span></div>
+        </div>
+        <div class="mh-review">
+          <div class="mh-review__stars">★★★★★</div>
+          <p class="mh-review__text">[ Customer review copy — a third real testimonial, e.g. sleep, energy, or daily ease. ]</p>
+          <div class="mh-review__who"><span class="mh-ph mh-ph--avatar"></span><span class="mh-review__name">[ Customer name ]<span>Verified buyer</span></span></div>
+        </div>
+      </div>
+      <div class="mh-transform">
+        <div class="mh-ph"><span class="mh-ph__label"><b>Before</b>Day 0 transformation / progress photo or metric card.</span></div>
+        <div class="mh-ph"><span class="mh-ph__label"><b>After</b>Result after a 60–90 day cycle.</span></div>
+        <div class="mh-ph"><span class="mh-ph__label"><b>Before</b>Second customer, day 0.</span></div>
+        <div class="mh-ph"><span class="mh-ph__label"><b>After</b>Second customer, after cycle.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOAL / VISION -->
+  <section class="mh-section" style="padding-top:0;">
     <div class="mh-wrap mh-wrap--narrow mh-center">
       <p class="mh-section__kicker">Where we're going</p>
       <h2 class="mh-title">A foundational stack for the long run</h2>
@@ -236,6 +326,10 @@
   <section class="mh-section" style="padding-top:0;">
     <div class="mh-wrap">
       <div class="mh-founder">
+        <div class="mh-founder__faces">
+          <span class="mh-ph mh-ph--avatar"></span>
+          <span class="mh-ph mh-ph--avatar"></span>
+        </div>
         <p class="mh-founder__quote">“We only make things we'd take ourselves, every day — and we'll always show you exactly what's inside.”</p>
         <p class="mh-founder__by">— The MEHR team</p>
       </div>
