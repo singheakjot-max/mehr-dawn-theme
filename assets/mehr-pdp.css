@@ -1,0 +1,733 @@
+/* ============================================================
+   MEHR PDP — Scoped styles
+   All selectors prefixed with .mehr-pdp to prevent collision
+   with Dawn's base.css and other section styles.
+   ============================================================ */
+
+.mehr-pdp {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--mehr-ink);
+  background: var(--mehr-bg);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mehr-pdp *,
+.mehr-pdp *::before,
+.mehr-pdp *::after {
+  box-sizing: border-box;
+}
+
+.mehr-pdp .mehr-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.mehr-pdp .mehr-container--narrow { max-width: 768px; }
+
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-container { padding: 0 32px; }
+}
+
+/* ========== Announcement bar ========== */
+.mehr-pdp .mehr-announcement {
+  background: #F1EFE8;
+  padding: 10px 16px;
+}
+.mehr-pdp .mehr-announcement__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+.mehr-pdp .mehr-announcement__text {
+  font-weight: 500;
+}
+.mehr-pdp .mehr-chip {
+  background: var(--mehr-accent);
+  color: var(--mehr-ink);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mehr-pdp .mehr-chip--success {
+  background: var(--mehr-success-soft);
+  color: var(--mehr-success);
+}
+.mehr-pdp .mehr-chip--best-value {
+  background: var(--mehr-success);
+  color: white;
+}
+
+/* ========== Product hero layout ========== */
+.mehr-pdp .mehr-product {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-product {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mehr-pdp .mehr-product__media {
+  background: var(--mehr-product-hero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  min-height: 380px;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-product__media {
+    padding: 80px 64px;
+    min-height: 720px;
+  }
+}
+.mehr-pdp .mehr-product__media-inner {
+  width: 100%;
+  max-width: 480px;
+}
+.mehr-pdp .mehr-product__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+.mehr-pdp .mehr-product__placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  background: var(--mehr-product);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 28px;
+}
+
+.mehr-pdp .mehr-product__info {
+  padding: 32px 24px 48px;
+  max-width: 640px;
+}
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-product__info {
+    padding: 64px;
+  }
+}
+
+/* ========== Rating ========== */
+.mehr-pdp .mehr-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.mehr-pdp .mehr-rating__stars {
+  display: inline-flex;
+  gap: 1px;
+  color: #E8B432;
+}
+.mehr-pdp .mehr-rating__stars svg {
+  width: 16px;
+  height: 16px;
+}
+.mehr-pdp .mehr-rating__text {
+  color: var(--mehr-muted);
+  font-size: 14px;
+}
+
+/* ========== Headline area ========== */
+.mehr-pdp .mehr-kicker {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mehr-ink);
+  font-size: clamp(22px, 2.5vw, 30px);
+  line-height: 1.1;
+  margin: 0 0 4px;
+  letter-spacing: -0.005em;
+}
+.mehr-pdp .mehr-headline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-size: clamp(48px, 8vw, 96px);
+  margin: 0;
+  color: var(--mehr-ink);
+}
+.mehr-pdp .mehr-subtagline {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mehr-muted);
+  font-size: clamp(18px, 2vw, 24px);
+  margin: 4px 0 0;
+}
+
+/* ========== Supporting copy ========== */
+.mehr-pdp .mehr-supporting {
+  margin-top: 24px;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  color: var(--mehr-ink);
+}
+.mehr-pdp .mehr-supporting p { margin: 0 0 12px; }
+.mehr-pdp .mehr-supporting strong { font-weight: 600; }
+
+.mehr-pdp .mehr-supports {
+  margin: 20px 0 0;
+  font-size: 14px;
+}
+.mehr-pdp .mehr-supports__label { color: var(--mehr-muted); }
+.mehr-pdp .mehr-supports__value { color: var(--mehr-ink); }
+
+/* ========== Pill link (See Research) ========== */
+.mehr-pdp .mehr-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--mehr-ink);
+  border-radius: 999px;
+  padding: 10px 18px;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--mehr-ink);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.mehr-pdp .mehr-pill-link:hover {
+  background: var(--mehr-ink);
+  color: white;
+}
+
+/* ========== Buy form ========== */
+.mehr-pdp .mehr-form { display: block; margin-top: 32px; }
+.mehr-pdp .mehr-form .form { margin: 0; padding: 0; }
+
+.mehr-pdp .mehr-variants {
+  margin-bottom: 16px;
+}
+
+/* App block container — Kaching, etc. */
+.mehr-pdp .mehr-app-block:not(:empty) {
+  margin-bottom: 16px;
+}
+
+/* ========== Purchase options ========== */
+.mehr-pdp .mehr-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.mehr-pdp .mehr-option {
+  display: block;
+  position: relative;
+  border: 1px solid var(--mehr-line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  background: var(--mehr-bg);
+  transition: border-color 0.15s, background 0.15s;
+}
+.mehr-pdp .mehr-option:hover {
+  border-color: var(--mehr-ink);
+}
+.mehr-pdp .mehr-option--selected {
+  border: 2px solid var(--mehr-ink);
+  padding: 17px 19px;
+  background: white;
+}
+.mehr-pdp .mehr-option--bundle {
+  background: #F0F6E4;
+  border-color: transparent;
+}
+.mehr-pdp .mehr-option--bundle.mehr-option--selected {
+  border-color: var(--mehr-ink);
+  padding: 17px 19px;
+}
+.mehr-pdp .mehr-option__radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.mehr-pdp .mehr-option__radio-visual {
+  position: absolute;
+  left: 20px;
+  top: 22px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--mehr-line);
+  background: white;
+  flex-shrink: 0;
+}
+.mehr-pdp .mehr-option--selected .mehr-option__radio-visual {
+  background: var(--mehr-ink);
+  border-color: var(--mehr-ink);
+  position: relative;
+}
+.mehr-pdp .mehr-option--selected .mehr-option__radio-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><path d='M4 12l5 5L20 6' stroke='white' stroke-width='3' stroke-linecap='round'/></svg>");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.mehr-pdp .mehr-option__content {
+  display: block;
+  padding-left: 32px;
+}
+.mehr-pdp .mehr-option__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mehr-pdp .mehr-option__title-with-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mehr-pdp .mehr-option__title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--mehr-ink);
+}
+.mehr-pdp .mehr-option__price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mehr-pdp .mehr-price--sale,
+.mehr-pdp .mehr-option__price .price-item--sale {
+  color: var(--mehr-price);
+}
+.mehr-pdp .mehr-price--compare,
+.mehr-pdp .mehr-option__price .price-item--regular.price-item--last,
+.mehr-pdp .mehr-option__price s {
+  text-decoration: line-through;
+  color: var(--mehr-muted);
+  font-size: 14px;
+  font-weight: 400;
+}
+.mehr-pdp .mehr-option__subtitle {
+  display: block;
+  font-size: 12px;
+  color: var(--mehr-muted);
+  margin-top: 6px;
+}
+.mehr-pdp .mehr-option__benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--mehr-line);
+  font-size: 12px;
+  color: var(--mehr-muted);
+}
+.mehr-pdp .mehr-option__benefit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mehr-pdp .mehr-option__perk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--mehr-success);
+  margin-top: 6px;
+}
+
+/* Hide Dawn's price wrapper junk inside option price */
+.mehr-pdp .mehr-option__price .price {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mehr-pdp .mehr-option__price .price__container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mehr-pdp .mehr-option__price .price__regular,
+.mehr-pdp .mehr-option__price .price__sale {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mehr-pdp .mehr-option__price .visually-hidden { position: absolute !important; clip: rect(0 0 0 0); width: 1px; height: 1px; overflow: hidden; }
+.mehr-pdp .mehr-option__price .price__badge-sale,
+.mehr-pdp .mehr-option__price .price__badge-sold-out { display: none; }
+
+/* ========== Submit button ========== */
+.mehr-pdp .mehr-submit-wrap {
+  display: block;
+  margin: 0;
+}
+.mehr-pdp .mehr-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  background: var(--mehr-ink);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 18px 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mehr-pdp .mehr-submit:not(:disabled):hover {
+  background: #222;
+}
+.mehr-pdp .mehr-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.mehr-pdp .mehr-submit__price-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.mehr-pdp .mehr-submit__price-was {
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-size: 14px;
+  font-weight: 400;
+}
+.mehr-pdp .mehr-submit__price-was:empty,
+.mehr-pdp .mehr-submit__price-now:empty {
+  display: none;
+}
+
+.mehr-pdp .mehr-shipping-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: var(--mehr-success);
+}
+
+/* ========== Section headers (shared) ========== */
+.mehr-pdp .mehr-section { padding: 64px 0; }
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-section { padding: 96px 0; }
+}
+
+.mehr-pdp .mehr-section__kicker {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--mehr-muted);
+  font-size: clamp(20px, 2.2vw, 28px);
+  margin: 0 0 8px;
+}
+.mehr-pdp .mehr-section__kicker--centered { text-align: center; }
+.mehr-pdp .mehr-section__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-size: clamp(40px, 5vw, 64px);
+  margin: 0 0 40px;
+  color: var(--mehr-ink);
+}
+.mehr-pdp .mehr-section__title--centered { text-align: center; }
+.mehr-pdp .mehr-section__title--xl {
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.9;
+  margin-bottom: 48px;
+}
+.mehr-pdp .mehr-section__intro {
+  text-align: center;
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--mehr-ink);
+}
+.mehr-pdp .mehr-section__intro p { margin: 0; }
+.mehr-pdp .mehr-section__intro em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+}
+
+/* ========== Inside Every Bottle ========== */
+.mehr-pdp .mehr-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.mehr-pdp .mehr-ingredient {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--mehr-line);
+}
+.mehr-pdp .mehr-ingredient:last-child { border-bottom: 0; padding-bottom: 0; }
+@media (min-width: 1024px) {
+  .mehr-pdp .mehr-ingredient {
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+  }
+}
+.mehr-pdp .mehr-ingredient__icon {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.mehr-pdp .mehr-ingredient__icon-inner {
+  text-align: center;
+}
+.mehr-pdp .mehr-ingredient__icon-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 16px;
+  display: block;
+}
+.mehr-pdp .mehr-ingredient__icon-sub {
+  font-size: 8px;
+  opacity: 0.85;
+  display: block;
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+.mehr-pdp .mehr-ingredient__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-size: clamp(22px, 2.4vw, 28px);
+  margin: 0 0 4px;
+}
+.mehr-pdp .mehr-ingredient__spec {
+  font-size: 14px;
+  color: var(--mehr-muted);
+  margin: 0 0 12px;
+}
+.mehr-pdp .mehr-ingredient__copy {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ========== Trust bar ========== */
+.mehr-pdp .mehr-section--trust { padding: 48px 0; border-top: 1px solid var(--mehr-line); }
+.mehr-pdp .mehr-trust {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .mehr-pdp .mehr-trust { grid-template-columns: repeat(4, 1fr); }
+}
+.mehr-pdp .mehr-trust__icon {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+}
+.mehr-pdp .mehr-trust__label {
+  font-weight: 500;
+  margin: 0;
+  font-size: 14px;
+}
+.mehr-pdp .mehr-trust__link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--mehr-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ========== Timeline ========== */
+.mehr-pdp .mehr-timeline {
+  max-width: 640px;
+  margin: 64px auto 0;
+  padding-left: 32px;
+  position: relative;
+}
+.mehr-pdp .mehr-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--mehr-ink);
+}
+.mehr-pdp .mehr-timeline__item {
+  position: relative;
+  padding-bottom: 40px;
+}
+.mehr-pdp .mehr-timeline__item:last-child { padding-bottom: 0; }
+.mehr-pdp .mehr-timeline__dot {
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--mehr-ink);
+}
+.mehr-pdp .mehr-timeline__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-size: clamp(22px, 2.4vw, 28px);
+  margin: 0 0 8px;
+}
+.mehr-pdp .mehr-timeline__copy {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mehr-muted);
+}
+
+/* ========== FAQ ========== */
+.mehr-pdp .mehr-faq {
+  display: flex;
+  flex-direction: column;
+}
+.mehr-pdp .mehr-faq__item {
+  border-bottom: 1px solid var(--mehr-line);
+  padding: 20px 0;
+}
+.mehr-pdp .mehr-faq__question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 500;
+}
+.mehr-pdp .mehr-faq__question::-webkit-details-marker { display: none; }
+.mehr-pdp .mehr-faq__icon {
+  font-size: 24px;
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+.mehr-pdp .mehr-faq__item[open] .mehr-faq__icon {
+  transform: rotate(45deg);
+}
+.mehr-pdp .mehr-faq__answer {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mehr-muted);
+}
+.mehr-pdp .mehr-faq__answer p { margin: 0 0 12px; }
+.mehr-pdp .mehr-faq__answer p:last-child { margin-bottom: 0; }
+
+/* ========== Reviews ========== */
+.mehr-pdp .mehr-reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.mehr-pdp .mehr-review {
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--mehr-line);
+}
+.mehr-pdp .mehr-review:last-child { border-bottom: 0; padding-bottom: 0; }
+.mehr-pdp .mehr-review__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.mehr-pdp .mehr-review__name { font-weight: 500; }
+.mehr-pdp .mehr-review__verified {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2962FF;
+}
+.mehr-pdp .mehr-review__benefits {
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+.mehr-pdp .mehr-review__benefits-label { color: var(--mehr-muted); }
+.mehr-pdp .mehr-review__benefits-value { color: var(--mehr-ink); }
+.mehr-pdp .mehr-review__rating-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.mehr-pdp .mehr-review__stars {
+  display: inline-flex;
+  gap: 1px;
+  color: #E8B432;
+}
+.mehr-pdp .mehr-review__stars svg { width: 14px; height: 14px; }
+.mehr-pdp .mehr-review__time {
+  font-size: 12px;
+  color: var(--mehr-muted);
+}
+.mehr-pdp .mehr-review__title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+.mehr-pdp .mehr-review__body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ========== Loading spinner override ========== */
+.mehr-pdp .mehr-submit .loading__spinner {
+  display: none;
+  margin-left: 8px;
+}
+.mehr-pdp .mehr-submit.loading .loading__spinner { display: inline-flex; }
+.mehr-pdp .mehr-submit.loading .mehr-submit__label { opacity: 0.7; }
+
+/* ========== Error message (Dawn product-form errors) ========== */
+.mehr-pdp .product-form__error-message-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FDE8E8;
+  color: #8B1A1A;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.mehr-pdp .product-form__error-message-wrapper[hidden] { display: none; }
