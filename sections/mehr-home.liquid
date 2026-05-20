@@ -1,192 +1,108 @@
-{%- comment -%}
-  MEHR Homepage section. Built to match the MEHR PDP design language
-  (Inter 500 / -0.04em headlines, Instrument Serif italic kickers,
-  pastel hero, single dark CTA pill, lime accent). Self-contained styles
-  scoped to .mehr-home so it never collides with Dawn base.css.
-{%- endcomment -%}
-
+{%- comment -%} MEHR brand homepage. Inter 500 / -0.04em headlines, Instrument Serif italic kickers, pastel + lime + ink. {%- endcomment -%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 {%- liquid
-  assign hero_product = section.settings.hero_product
-  if hero_product == blank
-    assign hero_product = all_products['test']
-  endif
-  assign buy_url = hero_product.url | default: '/products/test'
+  assign p_bpc = all_products['test']
+  assign p_natto = all_products['mehr-ultimate-nattokinase-natural-solution-for-reversing-arterial-inflammation']
 -%}
 
 <style>
   #MehrHome-{{ section.id }} {
-    --mehr-bg: {{ section.settings.bg_color | default: '#FAFAF7' }};
-    --mehr-ink: {{ section.settings.ink_color | default: '#0F0F0E' }};
-    --mehr-muted: #6B6B66;
-    --mehr-line: #E8E6DF;
-    --mehr-accent: {{ section.settings.accent_color | default: '#DCE94B' }};
-    --mehr-product: {{ section.settings.product_color | default: '#1E3A8A' }};
-    --mehr-product-hero: {{ section.settings.product_hero_color | default: '#DCE7F5' }};
-    --mehr-success: #2F7A3E;
-    --mehr-success-soft: #E8F3DD;
+    --mehr-bg: #FAFAF7; --mehr-ink: #0F0F0E; --mehr-muted: #6B6B66; --mehr-line: #E8E6DF;
+    --mehr-accent: #DCE94B; --mehr-product: #1E3A8A; --mehr-product-hero: #DCE7F5; --mehr-success: #2F7A3E;
   }
-  .mehr-home {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--mehr-ink);
-    background: var(--mehr-bg);
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+  .mehr-home { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--mehr-ink); background: var(--mehr-bg); line-height: 1.5; -webkit-font-smoothing: antialiased; }
   .mehr-home *, .mehr-home *::before, .mehr-home *::after { box-sizing: border-box; }
   .mehr-home img { display: block; max-width: 100%; }
-  .mehr-home .mh-wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-  .mehr-home .mh-wrap--narrow { max-width: 820px; }
+  .mehr-home .mh-wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .mehr-home .mh-wrap--narrow { max-width: 760px; }
   @media (min-width:1024px){ .mehr-home .mh-wrap { padding: 0 32px; } }
-
-  /* Kicker / headline / titles */
-  .mehr-home .mh-kicker {
-    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
-    color: var(--mehr-ink); font-size: clamp(20px, 2.4vw, 30px); line-height: 1.1;
-    margin: 0 0 6px;
-  }
-  .mehr-home .mh-headline {
-    font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.04em;
-    line-height: 0.92; font-size: clamp(56px, 9vw, 104px); margin: 0; color: var(--mehr-ink);
-  }
-  .mehr-home .mh-sub {
-    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
-    color: var(--mehr-muted); font-size: clamp(18px, 2vw, 26px); margin: 6px 0 0;
-  }
-  .mehr-home .mh-title {
-    font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.04em;
-    line-height: 0.96; font-size: clamp(38px, 5vw, 64px); margin: 0 0 16px; color: var(--mehr-ink);
-  }
-  .mehr-home .mh-title em, .mehr-home .mh-headline em, .mehr-home .mh-cta-band__title em {
-    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; letter-spacing: 0;
-  }
-  .mehr-home .mh-section__kicker {
-    font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-muted);
-    font-size: clamp(20px, 2.2vw, 28px); margin: 0 0 8px;
-  }
   .mehr-home .mh-section { padding: 72px 0; }
   @media (min-width:1024px){ .mehr-home .mh-section { padding: 104px 0; } }
   .mehr-home .mh-center { text-align: center; }
-  .mehr-home .mh-lede { margin: 22px 0 0; font-size: clamp(15px,1.1vw,17px); line-height: 1.6; max-width: 30em; }
 
-  /* Buttons */
-  .mehr-home .mh-btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    background: var(--mehr-ink); color: #fff; border: none; border-radius: 999px;
-    padding: 17px 34px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px;
-    letter-spacing: 0.01em; cursor: pointer; text-decoration: none; transition: background .15s, transform .15s;
-  }
+  .mehr-home .mh-kicker { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-muted); font-size: clamp(20px, 2.4vw, 30px); line-height: 1.1; margin: 0 0 10px; }
+  .mehr-home .mh-headline { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.04em; line-height: 0.96; font-size: clamp(40px, 7vw, 86px); margin: 0; }
+  .mehr-home .mh-headline em, .mehr-home .mh-title em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; letter-spacing: 0; }
+  .mehr-home .mh-title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.04em; line-height: 0.98; font-size: clamp(34px, 5vw, 60px); margin: 0 0 16px; }
+  .mehr-home .mh-section__kicker { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-muted); font-size: clamp(20px, 2.2vw, 28px); margin: 0 0 8px; }
+  .mehr-home .mh-lede { font-size: clamp(16px,1.4vw,19px); line-height: 1.6; color: var(--mehr-ink); }
+  .mehr-home .mh-muted { color: var(--mehr-muted); }
+
+  .mehr-home .mh-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--mehr-ink); color: #fff; border: 0; border-radius: 999px; padding: 16px 32px; font-weight: 500; font-size: 16px; text-decoration: none; transition: background .15s, transform .15s; }
   .mehr-home .mh-btn:hover { background: #222; transform: translateY(-1px); }
-  .mehr-home .mh-btn--outline { background: transparent; color: var(--mehr-ink); border: 1px solid var(--mehr-ink); }
-  .mehr-home .mh-btn--outline:hover { background: var(--mehr-ink); color: #fff; }
-  .mehr-home .mh-link {
-    display: inline-flex; align-items: center; gap: 6px; color: var(--mehr-ink); text-decoration: none;
-    font-weight: 500; font-size: 15px; border-bottom: 1px solid var(--mehr-ink); padding-bottom: 2px;
-  }
+  .mehr-home .mh-link { display: inline-flex; align-items: center; gap: 6px; color: var(--mehr-ink); text-decoration: none; font-weight: 500; font-size: 15px; border-bottom: 1px solid var(--mehr-ink); padding-bottom: 2px; }
   .mehr-home .mh-link:hover { opacity: .6; }
-  .mehr-home .mh-chip {
-    display: inline-block; background: var(--mehr-accent); color: var(--mehr-ink);
-    border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600; white-space: nowrap;
-  }
-  .mehr-home .mh-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-  .mehr-home .mh-stars { display: inline-flex; gap: 1px; color: #E8B432; }
-  .mehr-home .mh-stars svg { width: 16px; height: 16px; }
-  .mehr-home .mh-rating__text { color: var(--mehr-muted); font-size: 14px; }
+  .mehr-home .mh-chip { display: inline-block; background: var(--mehr-accent); color: var(--mehr-ink); border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600; }
 
-  /* Announcement */
   .mehr-home .mh-announce { background: #F1EFE8; padding: 10px 16px; }
-  .mehr-home .mh-announce__inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 12px; align-items: center; justify-content: center; font-size: 14px; flex-wrap: wrap; }
+  .mehr-home .mh-announce__inner { max-width: 1180px; margin: 0 auto; display: flex; gap: 12px; align-items: center; justify-content: center; font-size: 14px; flex-wrap: wrap; }
   .mehr-home .mh-announce__text { font-weight: 500; }
 
   /* Hero */
   .mehr-home .mh-hero { background: var(--mehr-product-hero); }
-  .mehr-home .mh-hero__inner { display: grid; grid-template-columns: 1fr; max-width: 1280px; margin: 0 auto; }
-  @media (min-width:1024px){ .mehr-home .mh-hero__inner { grid-template-columns: 1.05fr 0.95fr; align-items: center; } }
-  .mehr-home .mh-hero__text { padding: 48px 24px; }
-  @media (min-width:1024px){ .mehr-home .mh-hero__text { padding: 80px 56px; } }
-  .mehr-home .mh-hero__media { display: flex; align-items: center; justify-content: center; padding: 0 24px 48px; }
-  @media (min-width:1024px){ .mehr-home .mh-hero__media { padding: 64px 56px; min-height: 620px; } }
-  .mehr-home .mh-hero__media img { width: 100%; max-width: 520px; border-radius: 10px; }
-  .mehr-home .mh-hero__ph { width: 100%; max-width: 460px; aspect-ratio: 1; border-radius: 16px; background: var(--mehr-product); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; letter-spacing: .04em; font-size: 28px; }
-  .mehr-home .mh-cta-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 28px; }
-  .mehr-home .mh-ship-note { display: flex; align-items: center; gap: 8px; margin: 16px 0 0; font-size: 14px; color: var(--mehr-success); }
+  .mehr-home .mh-hero__inner { max-width: 900px; margin: 0 auto; padding: 88px 24px; text-align: center; }
+  @media (min-width:1024px){ .mehr-home .mh-hero__inner { padding: 132px 24px; } }
+  .mehr-home .mh-hero .mh-lede { max-width: 38em; margin: 22px auto 0; }
+  .mehr-home .mh-cta-row { display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
 
-  /* Trust bar */
-  .mehr-home .mh-trust { border-bottom: 1px solid var(--mehr-line); padding: 36px 0; }
-  .mehr-home .mh-trust__grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 28px; text-align: center; }
-  @media (min-width:768px){ .mehr-home .mh-trust__grid { grid-template-columns: repeat(4,1fr); } }
-  .mehr-home .mh-trust__icon { display: flex; justify-content: center; margin-bottom: 10px; color: var(--mehr-ink); }
-  .mehr-home .mh-trust__icon svg { width: 26px; height: 26px; }
-  .mehr-home .mh-trust__label { margin: 0; font-weight: 500; font-size: 14px; }
+  /* Pillars */
+  .mehr-home .mh-pillars { display: grid; grid-template-columns: 1fr; gap: 28px; margin-top: 40px; }
+  @media (min-width:768px){ .mehr-home .mh-pillars { grid-template-columns: repeat(2,1fr); gap: 40px 48px; } }
+  @media (min-width:1024px){ .mehr-home .mh-pillars { grid-template-columns: repeat(4,1fr); } }
+  .mehr-home .mh-pillar__icon { color: var(--mehr-product); margin-bottom: 14px; }
+  .mehr-home .mh-pillar__icon svg { width: 30px; height: 30px; }
+  .mehr-home .mh-pillar h3 { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.02em; font-size: 19px; margin: 0 0 8px; }
+  .mehr-home .mh-pillar p { margin: 0; color: var(--mehr-muted); font-size: 15px; line-height: 1.55; }
 
-  /* Inside Every Bottle */
-  .mehr-home .mh-ingredients { display: flex; flex-direction: column; gap: 32px; margin-top: 16px; }
-  .mehr-home .mh-ingredient { display: grid; grid-template-columns: 110px 1fr; gap: 24px; align-items: start; padding-bottom: 32px; border-bottom: 1px solid var(--mehr-line); }
-  .mehr-home .mh-ingredient:last-child { border-bottom: 0; padding-bottom: 0; }
-  @media (min-width:1024px){ .mehr-home .mh-ingredient { grid-template-columns: 170px 1fr; gap: 40px; } }
-  .mehr-home .mh-ing__tile { aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; }
-  .mehr-home .mh-ing__tile-label { font-weight: 700; letter-spacing: .04em; font-size: 16px; display: block; }
-  .mehr-home .mh-ing__tile-sub { font-size: 8px; opacity: .85; display: block; margin-top: 4px; letter-spacing: .06em; }
-  .mehr-home .mh-ing__title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.03em; font-size: clamp(22px, 2.4vw, 28px); margin: 0 0 4px; }
-  .mehr-home .mh-ing__spec { font-size: 14px; color: var(--mehr-muted); margin: 0 0 12px; }
-  .mehr-home .mh-ing__copy { margin: 0; font-size: 16px; line-height: 1.6; }
+  /* Purpose band */
+  .mehr-home .mh-purpose { background: var(--mehr-ink); color: #fff; }
+  .mehr-home .mh-purpose__inner { max-width: 920px; margin: 0 auto; padding: 88px 24px; text-align: center; }
+  @media (min-width:1024px){ .mehr-home .mh-purpose__inner { padding: 120px 24px; } }
+  .mehr-home .mh-purpose__kicker { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-accent); font-size: 24px; margin: 0 0 18px; }
+  .mehr-home .mh-purpose__text { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; font-size: clamp(28px, 4vw, 52px); margin: 0; }
+  .mehr-home .mh-purpose__text em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-accent); }
 
-  /* Timeline */
-  .mehr-home .mh-timeline-sec { background: #F1EFE8; }
-  .mehr-home .mh-timeline { max-width: 660px; margin: 48px auto 0; padding-left: 32px; position: relative; }
-  .mehr-home .mh-timeline::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 1px; background: var(--mehr-ink); }
-  .mehr-home .mh-tl__item { position: relative; padding-bottom: 40px; }
-  .mehr-home .mh-tl__item:last-child { padding-bottom: 0; }
-  .mehr-home .mh-tl__dot { position: absolute; left: -28px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--mehr-ink); }
-  .mehr-home .mh-tl__item:last-child .mh-tl__dot { background: #B7B4AC; }
-  .mehr-home .mh-tl__title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.03em; font-size: clamp(20px, 2.2vw, 26px); margin: 0 0 8px; }
-  .mehr-home .mh-tl__copy { margin: 0; font-size: 16px; line-height: 1.6; color: var(--mehr-muted); }
+  /* Lineup */
+  .mehr-home .mh-lineup { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
+  @media (min-width:768px){ .mehr-home .mh-lineup { grid-template-columns: 1fr 1fr; } }
+  .mehr-home .mh-card { display: flex; flex-direction: column; border: 1px solid var(--mehr-line); border-radius: 20px; overflow: hidden; background: #fff; text-decoration: none; color: var(--mehr-ink); transition: transform .15s, box-shadow .15s; }
+  .mehr-home .mh-card:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(15,15,14,.08); }
+  .mehr-home .mh-card__media { aspect-ratio: 4 / 3; background: var(--mehr-product-hero); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .mehr-home .mh-card__media img { width: 100%; height: 100%; object-fit: cover; }
+  .mehr-home .mh-card--natto .mh-card__media { background: #F4E7EA; }
+  .mehr-home .mh-card__body { padding: 24px 26px 28px; }
+  .mehr-home .mh-card__eyebrow { font-size: 13px; color: var(--mehr-muted); margin: 0 0 4px; }
+  .mehr-home .mh-card__title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.03em; font-size: 26px; margin: 0 0 8px; }
+  .mehr-home .mh-card__desc { margin: 0 0 16px; color: var(--mehr-muted); font-size: 15px; line-height: 1.55; }
+  .mehr-home .mh-card__cta { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; font-size: 15px; border-bottom: 1px solid var(--mehr-ink); padding-bottom: 2px; }
 
-  /* Reviews */
-  .mehr-home .mh-reviews { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 12px; }
-  @media (min-width:768px){ .mehr-home .mh-reviews { grid-template-columns: repeat(3,1fr); } }
-  .mehr-home .mh-review { border: 1px solid var(--mehr-line); border-radius: 16px; padding: 28px; background: #fff; display: flex; flex-direction: column; }
-  .mehr-home .mh-review__stars { display: inline-flex; gap: 1px; color: #E8B432; margin-bottom: 14px; }
-  .mehr-home .mh-review__stars svg { width: 15px; height: 15px; }
-  .mehr-home .mh-review__title { font-weight: 600; font-size: 17px; margin: 0 0 8px; }
-  .mehr-home .mh-review__body { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: var(--mehr-ink); }
-  .mehr-home .mh-review__benefits { font-size: 13px; margin: 0 0 16px; color: var(--mehr-muted); }
-  .mehr-home .mh-review__benefits b { color: var(--mehr-ink); font-weight: 500; }
-  .mehr-home .mh-review__head { display: flex; align-items: center; gap: 8px; margin-top: auto; }
-  .mehr-home .mh-review__name { font-weight: 500; font-size: 14px; }
-  .mehr-home .mh-review__verified { font-size: 12px; font-weight: 500; color: #2962FF; display: inline-flex; align-items: center; gap: 4px; }
+  /* Standards strip */
+  .mehr-home .mh-standards { border-top: 1px solid var(--mehr-line); border-bottom: 1px solid var(--mehr-line); }
+  .mehr-home .mh-standards__grid { display: grid; grid-template-columns: repeat(2,1fr); }
+  @media (min-width:768px){ .mehr-home .mh-standards__grid { grid-template-columns: repeat(4,1fr); } }
+  .mehr-home .mh-standards__item { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 30px 16px; }
+  .mehr-home .mh-standards__item svg { width: 24px; height: 24px; color: var(--mehr-product); }
+  .mehr-home .mh-standards__item p { margin: 0; font-size: 13px; font-weight: 500; }
+  @media (min-width:768px){ .mehr-home .mh-standards__item + .mh-standards__item { border-left: 1px solid var(--mehr-line); } }
 
-  /* FAQ */
-  .mehr-home .mh-faq { display: flex; flex-direction: column; margin-top: 8px; }
-  .mehr-home .mh-faq__item { border-bottom: 1px solid var(--mehr-line); padding: 20px 0; }
-  .mehr-home .mh-faq__q { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 18px; cursor: pointer; list-style: none; font-weight: 500; }
-  .mehr-home .mh-faq__q::-webkit-details-marker { display: none; }
-  .mehr-home .mh-faq__icon { font-size: 26px; font-weight: 300; line-height: 1; transition: transform .2s; }
-  .mehr-home .mh-faq__item[open] .mh-faq__icon { transform: rotate(45deg); }
-  .mehr-home .mh-faq__a { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--mehr-muted); }
-  .mehr-home .mh-faq__a p { margin: 0; }
+  /* Founder note */
+  .mehr-home .mh-founder { max-width: 720px; margin: 0 auto; text-align: center; }
+  .mehr-home .mh-founder__quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(22px, 3vw, 34px); line-height: 1.3; margin: 0 0 20px; color: var(--mehr-ink); }
+  .mehr-home .mh-founder__by { font-size: 14px; color: var(--mehr-muted); }
 
-  /* CTA band */
-  .mehr-home .mh-cta-band { text-align: center; padding: 88px 0; }
-  .mehr-home .mh-cta-band__title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.04em; line-height: 0.95; font-size: clamp(40px, 6vw, 80px); margin: 0 0 18px; color: var(--mehr-ink); }
-  .mehr-home .mh-cta-band__sub { font-size: clamp(16px,1.3vw,19px); color: var(--mehr-muted); max-width: 30em; margin: 0 auto 28px; line-height: 1.5; }
-
-  /* Email capture */
+  /* Capture */
   .mehr-home .mh-capture { background: var(--mehr-ink); color: #fff; }
-  .mehr-home .mh-capture__inner { max-width: 1280px; margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; }
+  .mehr-home .mh-capture__inner { max-width: 1180px; margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; }
   @media (min-width:900px){ .mehr-home .mh-capture__inner { grid-template-columns: 1fr 1fr; padding: 80px 56px; } }
   .mehr-home .mh-capture__title { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.03em; font-size: clamp(28px, 3.4vw, 44px); line-height: 1; margin: 0; color: #fff; }
-  .mehr-home .mh-capture__title em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--mehr-accent); }
   .mehr-home .mh-capture__note { margin: 14px 0 0; color: rgba(255,255,255,.7); font-size: 15px; }
   .mehr-home .mh-capture form { display: flex; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.04); }
   .mehr-home .mh-capture input[type=email] { flex: 1; background: transparent; border: 0; color: #fff; padding: 16px 22px; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; }
   .mehr-home .mh-capture input[type=email]::placeholder { color: rgba(255,255,255,.5); }
   .mehr-home .mh-capture button { background: var(--mehr-accent); color: var(--mehr-ink); border: 0; padding: 0 28px; font-weight: 600; font-size: 15px; cursor: pointer; font-family: 'Inter', sans-serif; }
-  .mehr-home .mh-capture button:hover { filter: brightness(.95); }
   .mehr-home .mh-capture__success { margin: 14px 0 0; color: var(--mehr-accent); font-weight: 500; }
   .mehr-home .mh-disclaimer { font-size: 12px; color: var(--mehr-muted); text-align: center; max-width: 720px; margin: 0 auto; padding: 0 24px 56px; line-height: 1.5; }
 </style>
@@ -203,163 +119,126 @@
     </div>
   {%- endif -%}
 
-  <!-- HERO -->
+  <!-- BRAND HERO -->
   <section class="mh-hero">
     <div class="mh-hero__inner">
-      <div class="mh-hero__text">
-        <div class="mh-rating">
-          <span class="mh-stars" aria-hidden="true">
-            {%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}
-          </span>
-          <span class="mh-rating__text">{{ section.settings.rating_text }}</span>
-        </div>
-        <p class="mh-kicker">{{ section.settings.hero_kicker }}</p>
-        <h1 class="mh-headline">{{ section.settings.hero_headline }}</h1>
-        <p class="mh-sub">{{ section.settings.hero_sub }}</p>
-        <p class="mh-lede">{{ section.settings.hero_lede }}</p>
-        <div class="mh-cta-row">
-          <a class="mh-btn" href="{{ buy_url }}">{{ section.settings.hero_cta_label | default: 'Start Recovery' }}</a>
-          <a class="mh-link" href="#mh-science">{{ section.settings.hero_cta2_label | default: 'See what’s inside' }} →</a>
-        </div>
-        {%- if section.settings.hero_ship_note != blank -%}<p class="mh-ship-note">{{ section.settings.hero_ship_note }}</p>{%- endif -%}
-      </div>
-      <div class="mh-hero__media">
-        {%- if hero_product.featured_image != blank -%}
-          <img src="{{ hero_product.featured_image | image_url: width: 1040 }}" alt="{{ hero_product.title | escape }}" width="520" height="520" loading="eager">
-        {%- else -%}
-          <div class="mh-hero__ph">MEHR</div>
-        {%- endif -%}
+      <p class="mh-kicker">The foundational health company</p>
+      <h1 class="mh-headline">More from the body <em>you already have</em></h1>
+      <p class="mh-lede">MEHR makes daily, foundational supplements from the compounds your body already uses to repair itself — synthesised to pharmaceutical purity, delivered orally, and tested in the open. No needles. No fillers. No hype.</p>
+      <div class="mh-cta-row">
+        <a class="mh-btn" href="#mh-lineup">Shop the lineup</a>
+        <a class="mh-link" href="#mh-story">Read our story →</a>
       </div>
     </div>
   </section>
 
-  <!-- TRUST BAR -->
-  <div class="mh-trust">
+  <!-- WHO WE ARE -->
+  <section class="mh-section" id="mh-story">
+    <div class="mh-wrap mh-wrap--narrow">
+      <p class="mh-section__kicker">Who we are</p>
+      <h2 class="mh-title">We started with a simple frustration</h2>
+      <p class="mh-lede mh-muted">The most promising recovery and longevity compounds were locked behind injections, grey-market vials, and zero transparency. MEHR exists to change that — to take what the research community already trusts and make it clean, oral, and easy to keep up every day. We name every ingredient, third-party test every batch, and refuse the fillers and proprietary blends the rest of the industry hides behind.</p>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="mh-section" style="padding-top:0;">
     <div class="mh-wrap">
-      <div class="mh-trust__grid">
-        <div>
-          <span class="mh-trust__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <p class="mh-trust__label">99.9% Purity</p>
+      <div class="mh-pillars">
+        <div class="mh-pillar">
+          <span class="mh-pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg></span>
+          <h3>Pharmaceutical purity</h3>
+          <p>Actives synthesised to 99.9% purity. No proprietary blends, no hiding behind ‘other ingredients.’</p>
         </div>
-        <div>
-          <span class="mh-trust__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg></span>
-          <p class="mh-trust__label">Third-Party Tested</p>
+        <div class="mh-pillar">
+          <span class="mh-pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg></span>
+          <h3>Radically transparent</h3>
+          <p>Third-party tested, certificate of analysis on request, every ingredient named on the label.</p>
         </div>
-        <div>
-          <span class="mh-trust__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13l4 4v6h-3M3 7v10h2"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></svg></span>
-          <p class="mh-trust__label">Free U.S. Shipping</p>
+        <div class="mh-pillar">
+          <span class="mh-pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 8h6M8 12h8M8 16h5"/></svg></span>
+          <h3>Research-backed</h3>
+          <p>Every formula is built on published human and pre-clinical studies — and we link to them.</p>
         </div>
-        <div>
-          <span class="mh-trust__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c5-3 8-7 8-12V5l-8-2-8 2v4c0 5 3 9 8 12z"/><path d="M12 7v8M8 11h8"/></svg></span>
-          <p class="mh-trust__label">No Fillers, Ever</p>
+        <div class="mh-pillar">
+          <span class="mh-pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <h3>Oral &amp; daily</h3>
+          <p>No needles, no fridge, no ritual. One capsule that fits the routine you already have.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PURPOSE -->
+  <section class="mh-purpose">
+    <div class="mh-purpose__inner">
+      <p class="mh-purpose__kicker">Our purpose</p>
+      <p class="mh-purpose__text">To make foundational health compounds clean, proven, and <em>effortless</em> — so taking care of your body stops being complicated.</p>
+    </div>
+  </section>
+
+  <!-- LINEUP -->
+  <section class="mh-section" id="mh-lineup">
+    <div class="mh-wrap mh-center">
+      <p class="mh-section__kicker">The lineup</p>
+      <h2 class="mh-title">Two formulas. One standard.</h2>
+    </div>
+    <div class="mh-wrap">
+      <div class="mh-lineup">
+        <a class="mh-card" href="{{ p_bpc.url | default: '/products/test' }}">
+          <div class="mh-card__media">
+            {%- if p_bpc.featured_image != blank -%}<img src="{{ p_bpc.featured_image | image_url: width: 900 }}" alt="BPC 157" width="600" height="450" loading="lazy">{%- endif -%}
+          </div>
+          <div class="mh-card__body">
+            <p class="mh-card__eyebrow">Recovery oral peptide</p>
+            <h3 class="mh-card__title">BPC 157</h3>
+            <p class="mh-card__desc">The body-protection peptide for gut, joints, tendons, muscle and sleep — now an oral capsule.</p>
+            <span class="mh-card__cta">Shop BPC 157 →</span>
+          </div>
+        </a>
+        <a class="mh-card mh-card--natto" href="{{ p_natto.url | default: '/products/mehr-ultimate-nattokinase-natural-solution-for-reversing-arterial-inflammation' }}">
+          <div class="mh-card__media">
+            {%- if p_natto.featured_image != blank -%}<img src="{{ p_natto.featured_image | image_url: width: 900 }}" alt="Ultimate Nattokinase" width="600" height="450" loading="lazy">{%- endif -%}
+          </div>
+          <div class="mh-card__body">
+            <p class="mh-card__eyebrow">Cardiovascular enzyme</p>
+            <h3 class="mh-card__title">Ultimate Nattokinase</h3>
+            <p class="mh-card__desc">A clinically-studied fibrinolytic enzyme for healthy circulation, blood pressure and arterial health.</p>
+            <span class="mh-card__cta">Shop Nattokinase →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDARDS -->
+  <div class="mh-standards">
+    <div class="mh-wrap">
+      <div class="mh-standards__grid">
+        <div class="mh-standards__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><p>Third-party tested</p></div>
+        <div class="mh-standards__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c5-3 8-7 8-12V5l-8-2-8 2v4c0 5 3 9 8 12z"/><path d="M12 7v8M8 11h8"/></svg><p>No fillers, ever</p></div>
+        <div class="mh-standards__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><p>Made in the USA</p></div>
+        <div class="mh-standards__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg><p>Free U.S. shipping</p></div>
       </div>
     </div>
   </div>
 
-  <!-- INSIDE EVERY BOTTLE -->
-  <section class="mh-section" id="mh-science">
-    <div class="mh-wrap mh-wrap--narrow">
-      <p class="mh-section__kicker">{{ section.settings.inside_kicker }}</p>
-      <h2 class="mh-title">{{ section.settings.inside_title }}</h2>
-      <div class="mh-ingredients">
-        <div class="mh-ingredient">
-          <div class="mh-ing__tile" style="background:#1E3A8A;color:#fff;"><div><span class="mh-ing__tile-label">MEHR</span><span class="mh-ing__tile-sub">BPC-157</span></div></div>
-          <div>
-            <h3 class="mh-ing__title">BPC-157 (Arginine Salt)</h3>
-            <p class="mh-ing__spec">500mcg per capsule · 99.9% purity</p>
-            <p class="mh-ing__copy">The same body-protection peptide your gut already produces — synthesized to 99.9% purity and bonded to L-Arginine so it survives digestion and reaches your bloodstream intact.</p>
-          </div>
-        </div>
-        <div class="mh-ingredient">
-          <div class="mh-ing__tile" style="background:#F5F0E4;color:#0F0F0E;"><div><span class="mh-ing__tile-label">L-ARG</span><span class="mh-ing__tile-sub">STABILIZER</span></div></div>
-          <div>
-            <h3 class="mh-ing__title">L-Arginine Bond</h3>
-            <p class="mh-ing__spec">The bioavailability key</p>
-            <p class="mh-ing__copy">Standard BPC-157 breaks down in stomach acid. Our L-Arginine salt bond protects the peptide through digestion — the only reason this works as a capsule instead of an injection.</p>
-          </div>
-        </div>
-        <div class="mh-ingredient">
-          <div class="mh-ing__tile" style="background:#FAFAF7;color:#0F0F0E;border:1px solid #E8E6DF;"><div><span class="mh-ing__tile-label">CLEAN</span><span class="mh-ing__tile-sub">NO FILLERS</span></div></div>
-          <div>
-            <h3 class="mh-ing__title">Nothing Else</h3>
-            <p class="mh-ing__spec">No fillers, no flow agents, no proprietary blends</p>
-            <p class="mh-ing__copy">No magnesium stearate. No silicon dioxide. No mystery ‘other ingredients.’ Just BPC-157 and the L-Arginine that delivers it. Two ingredients. Full transparency.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIMELINE -->
-  <section class="mh-section mh-timeline-sec">
+  <!-- GOAL / VISION -->
+  <section class="mh-section">
     <div class="mh-wrap mh-wrap--narrow mh-center">
-      <p class="mh-section__kicker">{{ section.settings.timeline_kicker }}</p>
-      <h2 class="mh-title">{{ section.settings.timeline_title }}</h2>
-    </div>
-    <div class="mh-wrap mh-wrap--narrow">
-      <div class="mh-timeline">
-        <div class="mh-tl__item"><div class="mh-tl__dot"></div><h3 class="mh-tl__title">Week 1</h3><p class="mh-tl__copy">Foundational support begins. Most people notice calmer, deeper sleep and easier mornings within the first few days.</p></div>
-        <div class="mh-tl__item"><div class="mh-tl__dot"></div><h3 class="mh-tl__title">Weeks 2–3</h3><p class="mh-tl__copy">Less bloating, smoother digestion, and steadier energy as gut-lining repair gets underway.</p></div>
-        <div class="mh-tl__item"><div class="mh-tl__dot"></div><h3 class="mh-tl__title">Month 1</h3><p class="mh-tl__copy">Joints and tendons feel looser, and recovery between training sessions starts to shorten noticeably.</p></div>
-        <div class="mh-tl__item"><div class="mh-tl__dot"></div><h3 class="mh-tl__title">Months 2–3</h3><p class="mh-tl__copy">Compounding repair — connective tissue, inflammation, and resilience all trending in the right direction.</p></div>
-        <div class="mh-tl__item"><div class="mh-tl__dot"></div><h3 class="mh-tl__title">Ongoing</h3><p class="mh-tl__copy">A daily foundation. Recovery stops being something you chase and becomes your baseline.</p></div>
-      </div>
+      <p class="mh-section__kicker">Where we're going</p>
+      <h2 class="mh-title">A foundational stack for the long run</h2>
+      <p class="mh-lede mh-muted">We're building a small, deliberate set of clean, clinically-grounded daily formulas that cover the systems modern life wears down — recovery, circulation, resilience. Two products today. A complete foundation tomorrow. Every addition held to the same standard: pure, proven, and honest.</p>
     </div>
   </section>
 
-  <!-- REVIEWS -->
-  <section class="mh-section">
-    <div class="mh-wrap mh-center">
-      <p class="mh-section__kicker">{{ section.settings.reviews_kicker }}</p>
-      <h2 class="mh-title">{{ section.settings.reviews_title }}</h2>
-    </div>
+  <!-- FOUNDER NOTE -->
+  <section class="mh-section" style="padding-top:0;">
     <div class="mh-wrap">
-      <div class="mh-reviews">
-        <article class="mh-review">
-          <span class="mh-review__stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</span>
-          <h3 class="mh-review__title">Years of bloating, finally gone</h3>
-          <p class="mh-review__body">I’d tried probiotics, elimination diets, the works. Within a month on MEHR I noticed real changes — flatter stomach, smoother digestion, way more energy.</p>
-          <p class="mh-review__benefits">Noticed: <b>Gut comfort, Energy</b></p>
-          <div class="mh-review__head"><span class="mh-review__name">Brynlee B.</span><span class="mh-review__verified">✓ Verified Buyer</span></div>
-        </article>
-        <article class="mh-review">
-          <span class="mh-review__stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</span>
-          <h3 class="mh-review__title">Recovering like I’m 25 again</h3>
-          <p class="mh-review__body">I’m 52 and lifting heavy 4x a week. Pre-MEHR I was sore for days. Now I’m back in the gym the next morning.</p>
-          <p class="mh-review__benefits">Noticed: <b>Muscle recovery, Joints</b></p>
-          <div class="mh-review__head"><span class="mh-review__name">Josh T.</span><span class="mh-review__verified">✓ Verified Buyer</span></div>
-        </article>
-        <article class="mh-review">
-          <span class="mh-review__stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>{%- endfor -%}</span>
-          <h3 class="mh-review__title">My anxiety dropped without me noticing</h3>
-          <p class="mh-review__body">Took it for the gut stuff but the surprise was my mood. I’m calmer, sleep deeper, and have less of that wired feeling at 3pm.</p>
-          <p class="mh-review__benefits">Noticed: <b>Sleep, Mood</b></p>
-          <div class="mh-review__head"><span class="mh-review__name">Felicity G.</span><span class="mh-review__verified">✓ Verified Buyer</span></div>
-        </article>
+      <div class="mh-founder">
+        <p class="mh-founder__quote">“We only make things we'd take ourselves, every day — and we'll always show you exactly what's inside.”</p>
+        <p class="mh-founder__by">— The MEHR team</p>
       </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="mh-section">
-    <div class="mh-wrap mh-wrap--narrow">
-      <h2 class="mh-title mh-center">{{ section.settings.faq_title }}</h2>
-      <div class="mh-faq">
-        <details class="mh-faq__item"><summary class="mh-faq__q"><span>Is it safe?</span><span class="mh-faq__icon" aria-hidden="true">+</span></summary><div class="mh-faq__a"><p>BPC-157 has been studied extensively in clinical and pre-clinical research with no significant adverse effects reported at the doses used in MEHR. Every batch is third-party tested for purity.</p></div></details>
-        <details class="mh-faq__item"><summary class="mh-faq__q"><span>How long until I see results?</span><span class="mh-faq__icon" aria-hidden="true">+</span></summary><div class="mh-faq__a"><p>Most users report noticeable changes — less bloating, easier mornings, deeper sleep — within 2–3 weeks. Tendon and joint repair compounds over 60–90 days.</p></div></details>
-        <details class="mh-faq__item"><summary class="mh-faq__q"><span>Is this different from injectable BPC-157?</span><span class="mh-faq__icon" aria-hidden="true">+</span></summary><div class="mh-faq__a"><p>Same active peptide. Different delivery system. Our arginine-bonded oral version achieves high bioavailability without the needles or refrigeration.</p></div></details>
-        <details class="mh-faq__item"><summary class="mh-faq__q"><span>Will it break my fast?</span><span class="mh-faq__icon" aria-hidden="true">+</span></summary><div class="mh-faq__a"><p>No. Our capsules contain no sugars, calories, or insulin-triggering ingredients.</p></div></details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA BAND -->
-  <section class="mh-cta-band">
-    <div class="mh-wrap mh-wrap--narrow">
-      <h2 class="mh-cta-band__title">{{ section.settings.cta_title }}</h2>
-      <p class="mh-cta-band__sub">{{ section.settings.cta_sub }}</p>
-      <a class="mh-btn" href="{{ buy_url }}">{{ section.settings.cta_label | default: 'Start Recovery' }}</a>
     </div>
   </section>
 
@@ -367,14 +246,12 @@
   <div class="mh-capture">
     <div class="mh-capture__inner">
       <div>
-        <h2 class="mh-capture__title">{{ section.settings.capture_title }}</h2>
-        <p class="mh-capture__note">{{ section.settings.capture_note }}</p>
+        <h2 class="mh-capture__title">{{ section.settings.capture_title | default: 'Get 10% off your first order' }}</h2>
+        <p class="mh-capture__note">{{ section.settings.capture_note | default: 'Plus first access to new formulas and the research behind them.' }}</p>
       </div>
       <div>
         {%- form 'customer' -%}
-          {%- if form.posted_successfully? -%}
-            <p class="mh-capture__success">Thanks — your discount is on the way.</p>
-          {%- endif -%}
+          {%- if form.posted_successfully? -%}<p class="mh-capture__success">Thanks — your discount is on the way.</p>{%- endif -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
           <label class="visually-hidden" for="MehrCaptureEmail-{{ section.id }}">Email</label>
           <input id="MehrCaptureEmail-{{ section.id }}" type="email" name="contact[email]" placeholder="Email address" required>
@@ -384,7 +261,7 @@
     </div>
   </div>
 
-  <p class="mh-disclaimer">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+  <p class="mh-disclaimer">These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.</p>
 
 </div>
 
@@ -394,52 +271,14 @@
   "tag": "section",
   "class": "section-mehr-home",
   "settings": [
-    { "type": "header", "content": "Brand Colors" },
-    { "type": "color", "id": "product_color", "label": "Product accent", "default": "#1E3A8A" },
-    { "type": "color", "id": "product_hero_color", "label": "Hero background", "default": "#DCE7F5" },
-    { "type": "color", "id": "bg_color", "label": "Page background", "default": "#FAFAF7" },
-    { "type": "color", "id": "ink_color", "label": "Body text", "default": "#0F0F0E" },
-    { "type": "color", "id": "accent_color", "label": "Lime accent", "default": "#DCE94B" },
-
     { "type": "header", "content": "Announcement" },
     { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
     { "type": "text", "id": "announcement_chip", "label": "Chip", "default": "New" },
-    { "type": "text", "id": "announcement_text", "label": "Text", "default": "World’s first oral BPC-157 peptide" },
-
-    { "type": "header", "content": "Hero" },
-    { "type": "product", "id": "hero_product", "label": "Hero product" },
-    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.83/5 from 16,434 Customers" },
-    { "type": "text", "id": "hero_kicker", "label": "Kicker (serif italic)", "default": "World’s First Daily Foundational" },
-    { "type": "text", "id": "hero_headline", "label": "Headline", "default": "BPC 157" },
-    { "type": "text", "id": "hero_sub", "label": "Subtagline (serif italic)", "default": "Recovery Oral Peptide" },
-    { "type": "textarea", "id": "hero_lede", "label": "Supporting paragraph", "default": "The body-protection peptide your gut already makes — synthesized to 99.9% purity and bonded to L-Arginine so it survives digestion. Gut, joints, tendons, sleep, and recovery, supported daily." },
-    { "type": "text", "id": "hero_cta_label", "label": "Primary button", "default": "Start Recovery" },
-    { "type": "text", "id": "hero_cta2_label", "label": "Secondary link", "default": "See what’s inside" },
-    { "type": "text", "id": "hero_ship_note", "label": "Ship note", "default": "Ships FREE next business day · Cancel anytime" },
-
-    { "type": "header", "content": "Inside Every Bottle" },
-    { "type": "text", "id": "inside_kicker", "label": "Kicker", "default": "What you’re putting in your body" },
-    { "type": "text", "id": "inside_title", "label": "Title", "default": "Inside every bottle" },
-
-    { "type": "header", "content": "Timeline" },
-    { "type": "text", "id": "timeline_kicker", "label": "Kicker", "default": "The body’s own repair compound" },
-    { "type": "text", "id": "timeline_title", "label": "Title", "default": "What recovery looks like" },
-
-    { "type": "header", "content": "Reviews" },
-    { "type": "text", "id": "reviews_kicker", "label": "Kicker", "default": "Real stories" },
-    { "type": "text", "id": "reviews_title", "label": "Title", "default": "Loved by 16,000+" },
-
-    { "type": "header", "content": "FAQ" },
-    { "type": "text", "id": "faq_title", "label": "Title", "default": "Common questions" },
-
-    { "type": "header", "content": "CTA Band" },
-    { "type": "text", "id": "cta_title", "label": "Title", "default": "Start your recovery" },
-    { "type": "textarea", "id": "cta_sub", "label": "Subtext", "default": "One capsule a day. The foundation your body has been asking for." },
-    { "type": "text", "id": "cta_label", "label": "Button", "default": "Start Recovery" },
-
+    { "type": "text", "id": "announcement_text", "label": "Text", "default": "Ultimate Nattokinase has landed — meet the lineup" },
+    { "type": "product", "id": "hero_product", "label": "Hero product (optional)" },
     { "type": "header", "content": "Email Capture" },
     { "type": "text", "id": "capture_title", "label": "Title", "default": "Get 10% off your first order" },
-    { "type": "text", "id": "capture_note", "label": "Note", "default": "Plus first access to restocks and new research." }
+    { "type": "text", "id": "capture_note", "label": "Note", "default": "Plus first access to new formulas and the research behind them." }
   ],
   "presets": [{ "name": "MEHR Home" }]
 }
