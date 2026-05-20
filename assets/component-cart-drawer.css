@@ -419,7 +419,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
    MEHR brand overrides for the cart drawer
    Black pill checkout, rounded drawer, Inter typography.
    ============================================================ */
-.mehr-cart-vars { display: none; }
 cart-drawer .drawer__inner {
   background: #FAFAF7;
   border: 0;
@@ -478,6 +477,10 @@ cart-drawer .cart__checkout-button {
   padding: 1.7rem 2.4rem;
   transition: background 0.15s ease, transform 0.15s ease;
 }
+cart-drawer .cart__checkout-button::after,
+cart-drawer .cart__checkout-button::before {
+  border-radius: 999px !important;
+}
 cart-drawer .cart__checkout-button:hover:not([disabled]) {
   background: #222222;
   transform: translateY(-1px);
@@ -492,6 +495,10 @@ cart-drawer .drawer__inner-empty .button {
   border-radius: 999px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
+}
+cart-drawer .drawer__inner-empty .button::after,
+cart-drawer .drawer__inner-empty .button::before {
+  border-radius: 999px !important;
 }
 cart-drawer cart-remove-button .button {
   border-radius: 999px;
