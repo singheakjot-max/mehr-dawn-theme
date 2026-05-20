@@ -34,6 +34,12 @@
 .mehr-pdp .mehr-tier__unit { font-size: 11px; }
 .mehr-pdp .mehr-tier__was { font-size: 11px; }
 
+/* ---- Optimistic cart-drawer loading state (instant open on add) ---- */
+@keyframes mehr-spin { to { transform: rotate(360deg); } }
+cart-drawer.mehr-cart-loading .drawer__inner { position: relative; }
+cart-drawer.mehr-cart-loading .drawer__inner::after { content: ''; position: absolute; inset: 0; background: #FAFAF7; z-index: 5; }
+cart-drawer.mehr-cart-loading .drawer__inner::before { content: ''; position: absolute; top: 46%; left: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; z-index: 6; border: 3px solid #E8E6DF; border-top-color: #0F0F0E; border-radius: 50%; animation: mehr-spin .7s linear infinite; }
+
 /* ---- Modal / popup ---- */
 .mehr-modal { position: fixed; inset: 0; z-index: 1100; display: none; }
 .mehr-modal.is-open { display: block; }
