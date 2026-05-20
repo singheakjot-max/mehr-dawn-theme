@@ -130,6 +130,14 @@
             class="mehr-quantity-input"
           >
 
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                <div class="mehr-app-block" {{ block.shopify_attributes }}>
+                  {% render block %}
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
 
           <div class="mehr-options" role="radiogroup" aria-label="Purchase options">
             <label class="mehr-option" data-quantity="1" data-option="once">
@@ -158,9 +166,10 @@
                         <span class="mehr-chip mehr-chip--success">{{ section.settings.subscribe_chip }}</span>
                       {%- endif -%}
                     </span>
-<span class="mehr-option__price">
-                      {%- assign subscribe_price_cents = current_variant.price | times: 0.9 | round -%}
-                      <span class="mehr-price--sale">{{ subscribe_price_cents | money }}</span>
+                    <span class="mehr-option__price">
+                      {%- if section.settings.subscribe_price != blank -%}
+                        <span class="mehr-price--sale">{{ section.settings.subscribe_price }}</span>
+                      {%- endif -%}
                       <span class="mehr-price--compare">{{ current_variant.price | money }}</span>
                     </span>
                   </span>
@@ -184,10 +193,9 @@
                       {%- endif -%}
                     </span>
                   </span>
-                  {%- assign bundle_qty = section.settings.bundle_quantity | default: 3 -%}
-                  {%- assign bundle_price_per = current_variant.price | times: 2 | divided_by: bundle_qty -%}
-                  {%- assign bundle_savings = current_variant.price | times: bundle_qty | minus: current_variant.price | times: 2 -%}
-                  <span class="mehr-option__subtitle">Save {{ bundle_savings | money }} — {{ bundle_price_per | money }}/bottle</span>
+                  {%- if section.settings.bundle_subtitle != blank -%}
+                    <span class="mehr-option__subtitle">{{ section.settings.bundle_subtitle }}</span>
+                  {%- endif -%}
                 </span>
               </label>
             {%- endif -%}

@@ -731,3 +731,6 @@
   margin-bottom: 16px;
 }
 .mehr-pdp .product-form__error-message-wrapper[hidden] { display: none; }
+.mehr-pdp .mehr-options,
+.mehr-pdp .mehr-submit-wrap,
+.mehr-pdp .mehr-shipping-note { display: none; }
